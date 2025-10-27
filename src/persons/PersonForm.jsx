@@ -54,6 +54,14 @@ const PersonForm = () => {
             });
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPerson((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     const sent = sentState;
     const success = successState;
 
@@ -74,14 +82,12 @@ const PersonForm = () => {
                 <InputField
                     required={true}
                     type="text"
-                    name="personName"
+                    name="name"
                     min="3"
                     label="Jméno"
                     prompt="Zadejte celé jméno"
                     value={person.name}
-                    handleChange={(e) => {
-                        setPerson({ ...person, name: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -92,12 +98,7 @@ const PersonForm = () => {
                     label="IČO"
                     prompt="Zadejte IČO"
                     value={person.identificationNumber}
-                    handleChange={(e) => {
-                        setPerson({
-                            ...person,
-                            identificationNumber: e.target.value,
-                        });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -108,9 +109,7 @@ const PersonForm = () => {
                     label="DIČ"
                     prompt="Zadejte DIČ"
                     value={person.taxNumber}
-                    handleChange={(e) => {
-                        setPerson({ ...person, taxNumber: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -121,9 +120,7 @@ const PersonForm = () => {
                     label="Číslo bankovního účtu"
                     prompt="Zadejte číslo bankovního účtu"
                     value={person.accountNumber}
-                    handleChange={(e) => {
-                        setPerson({ ...person, accountNumber: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -134,9 +131,7 @@ const PersonForm = () => {
                     label="Kód banky"
                     prompt="Zadejte kód banky"
                     value={person.bankCode}
-                    handleChange={(e) => {
-                        setPerson({ ...person, bankCode: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -147,9 +142,7 @@ const PersonForm = () => {
                     label="IBAN"
                     prompt="Zadejte IBAN"
                     value={person.iban}
-                    handleChange={(e) => {
-                        setPerson({ ...person, iban: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -160,9 +153,7 @@ const PersonForm = () => {
                     label="Telefon"
                     prompt="Zadejte Telefon"
                     value={person.telephone}
-                    handleChange={(e) => {
-                        setPerson({ ...person, telephone: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -173,9 +164,7 @@ const PersonForm = () => {
                     label="Mail"
                     prompt="Zadejte mail"
                     value={person.mail}
-                    handleChange={(e) => {
-                        setPerson({ ...person, mail: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -186,9 +175,7 @@ const PersonForm = () => {
                     label="Ulice"
                     prompt="Zadejte ulici"
                     value={person.street}
-                    handleChange={(e) => {
-                        setPerson({ ...person, street: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -199,9 +186,7 @@ const PersonForm = () => {
                     label="PSČ"
                     prompt="Zadejte PSČ"
                     value={person.zip}
-                    handleChange={(e) => {
-                        setPerson({ ...person, zip: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -212,9 +197,7 @@ const PersonForm = () => {
                     label="Město"
                     prompt="Zadejte město"
                     value={person.city}
-                    handleChange={(e) => {
-                        setPerson({ ...person, city: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <InputField
@@ -223,9 +206,7 @@ const PersonForm = () => {
                     name="note"
                     label="Poznámka"
                     value={person.note}
-                    handleChange={(e) => {
-                        setPerson({ ...person, note: e.target.value });
-                    }}
+                    handleChange={handleChange}
                 />
 
                 <h6>Země:</h6>
@@ -235,9 +216,7 @@ const PersonForm = () => {
                     name="country"
                     label="Česká republika"
                     value={Country.CZECHIA}
-                    handleChange={(e) => {
-                        setPerson({ ...person, country: e.target.value });
-                    }}
+                    handleChange={handleChange}
                     checked={Country.CZECHIA === person.country}
                 />
 
@@ -246,9 +225,7 @@ const PersonForm = () => {
                     name="country"
                     label="Slovensko"
                     value={Country.SLOVAKIA}
-                    handleChange={(e) => {
-                        setPerson({ ...person, country: e.target.value });
-                    }}
+                    handleChange={handleChange}
                     checked={Country.SLOVAKIA === person.country}
                 />
 

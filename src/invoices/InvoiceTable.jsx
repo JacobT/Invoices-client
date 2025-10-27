@@ -1,47 +1,48 @@
 import { Link } from "react-router-dom";
+import { dateStringFormatter } from "../utils/dateStringFormatter";
 
-const PersonTable = ({ label, items, statistics, deletePerson }) => {
+const InvoiceTable = ({ items, deleteInvoice }) => {
     return (
-        <div>
-            <p>
-                {label} {items.length}
-            </p>
-
+        <div className="table-responsive">
             <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Jméno</th>
-                        <th>Celkové příjmy</th>
-                        <th colSpan={3}>Akce</th>
+                        <th>Faktura</th>
+                        <th>Datum vydání</th>
+                        <th>Datum splatnosti</th>
+                        <th>Cena</th>
+                        <th>Odběratel</th>
+                        <th>Prodejce</th>
+                        <th>Akce</th>
                     </tr>
                 </thead>
                 <tbody>
                     {items.map((item, index) => (
                         <tr key={index + 1}>
                             <td>{index + 1}</td>
-                            <td>{item.name}</td>
-                            <td>
-                                {statistics.filter(
-                                    (person) => person.personId == item._id
-                                )[0]?.totalRevenue ?? 0}
-                            </td>
+                            <td>{item.invoiceNumber}</td>
+                            <td>{dateStringFormatter(item.issued, true)}</td>
+                            <td>{dateStringFormatter(item.dueDate, true)}</td>
+                            <td>{item.price}</td>
+                            <td>{item.buyer.name}</td>
+                            <td>{item.seller.name}</td>
                             <td>
                                 <div className="btn-group">
                                     <Link
-                                        to={"/persons/show/" + item._id}
+                                        to={"/invoices/show/" + item._id}
                                         className="btn btn-sm btn-info"
                                     >
                                         Zobrazit
                                     </Link>
                                     <Link
-                                        to={"/persons/edit/" + item._id}
+                                        to={"/invoices/edit/" + item._id}
                                         className="btn btn-sm btn-warning"
                                     >
                                         Upravit
                                     </Link>
                                     <button
-                                        onClick={() => deletePerson(item._id)}
+                                        onClick={() => deleteInvoice(item._id)}
                                         className="btn btn-sm btn-danger"
                                     >
                                         Odstranit
@@ -52,11 +53,8 @@ const PersonTable = ({ label, items, statistics, deletePerson }) => {
                     ))}
                 </tbody>
             </table>
-            <Link to={"/persons/create"} className="btn btn-success">
-                Nová osoba
-            </Link>
         </div>
     );
 };
 
-export default PersonTable;
+export default InvoiceTable;

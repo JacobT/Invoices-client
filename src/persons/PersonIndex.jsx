@@ -3,6 +3,7 @@ import { apiDelete, apiGet } from "../utils/api";
 import PersonTable from "./PersonTable";
 const PersonIndex = () => {
     const [persons, setPersons] = useState([]);
+    const [personsStatistics, setPersonsStatistics] = useState([]);
 
     const deletePerson = async (id) => {
         try {
@@ -16,6 +17,9 @@ const PersonIndex = () => {
 
     useEffect(() => {
         apiGet("/api/persons").then((data) => setPersons(data));
+        apiGet("/api/persons/statistics").then((data) =>
+            setPersonsStatistics(data)
+        );
     }, []);
 
     return (
@@ -24,6 +28,7 @@ const PersonIndex = () => {
             <PersonTable
                 deletePerson={deletePerson}
                 items={persons}
+                statistics={personsStatistics}
                 label="Počet osob:"
             />
         </div>
