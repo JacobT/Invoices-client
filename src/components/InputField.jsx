@@ -1,48 +1,55 @@
-export function InputField(props) {
+export function InputField({
+    type,
+    required = false,
+    min = null,
+    label,
+    prompt,
+    rows,
+    name,
+    value,
+    handleChange,
+    ...props
+}) {
     // podporované typy pro element input
     const INPUTS = ["text", "number", "date"];
 
     // validace elementu a typu
-    const type = props.type.toLowerCase();
-    const isTextarea = type === "textarea";
-    const required = props.required || false;
+    const typeNormalized = type.toLowerCase();
+    const isTextarea = typeNormalized === "textarea";
 
-    if (!isTextarea && !INPUTS.includes(type)) {
+    if (!isTextarea && !INPUTS.includes(typeNormalized)) {
         return null;
     }
 
-    // přiřazení hodnoty minima do atributu příslušného typu
-    const minProp = props.min || null;
-    const min = ["number", "date"].includes(type) ? minProp : null;
-    const minlength = ["text", "textarea"].includes(type) ? minProp : null;
-
     return (
         <div className="form-group">
-            <label>{props.label}:</label>
+            {label && <label>{label}:</label>}
 
             {/* vykreslení aktuálního elementu */}
             {isTextarea ? (
                 <textarea
                     required={required}
                     className="form-control"
-                    placeholder={props.prompt}
-                    rows={props.rows}
-                    minLength={minlength}
-                    name={props.name}
-                    value={props.value}
-                    onChange={props.handleChange}
+                    placeholder={prompt}
+                    rows={rows}
+                    minLength={min}
+                    name={name}
+                    value={value}
+                    onChange={handleChange}
+                    {...props}
                 />
             ) : (
                 <input
                     required={required}
-                    type={type}
+                    type={typeNormalized}
                     className="form-control"
-                    placeholder={props.prompt}
-                    minLength={minlength}
+                    placeholder={prompt}
+                    minLength={min}
                     min={min}
-                    name={props.name}
-                    value={props.value}
-                    onChange={props.handleChange}
+                    name={name}
+                    value={value}
+                    onChange={handleChange}
+                    {...props}
                 />
             )}
         </div>

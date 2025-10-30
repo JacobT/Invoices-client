@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { dateStringFormatter } from "../utils/dateStringFormatter";
+import { dateStringFormatter } from "../../utils/dateStringFormatter";
 
 const InvoiceTable = ({ items, deleteInvoice }) => {
     return (

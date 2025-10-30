@@ -1,36 +1,9 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { apiDelete, apiGet } from "../utils/api";
-import InvoiceTable from "./InvoiceTable";
+import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
+import InvoiceTable from "./components/InvoiceTable";
 
 const InvoiceIndex = () => {
-    const [invoices, setInvoices] = useState([]);
-    const [invoiceStatistics, setInvoiceStatistics] = useState({
-        currentYearSum: "",
-        allTimeSum: "",
-        invoicesCount: "",
-    });
-
-    useEffect(() => {
-        const getInvoices = async () => {
-            const response = await apiGet("/api/invoices");
-            setInvoices(response);
-        };
-        getInvoices();
-    }, []);
-
-    useEffect(() => {
-        const getStatistics = async () => {
-            const response = await apiGet("/api/invoices/statistics");
-            setInvoiceStatistics(response);
-        };
-        getStatistics();
-    }, []);
-
-    const deleteInvoice = async (id) => {
-        await apiDelete("/api/invoices/" + id);
-        setInvoices(invoices.filter((invoice) => invoice._id != id));
-    };
+    const { invoices, invoiceStatistics, deleteInvoice } = useInvoiceIndex();
 
     return (
         <div className="pb-5">

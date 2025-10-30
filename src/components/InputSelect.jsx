@@ -10,7 +10,7 @@ export function InputSelect({
 }) {
     return (
         <div className="form-group">
-            <label>{label}:</label>
+            {label && <label>{label}:</label>}
             <select
                 required={required}
                 className="browser-default form-select"

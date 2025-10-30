@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Country from "./Country";
+import { countryFormatter } from "../utils/countryFormatter";
 import { apiGet } from "../utils/api";
 
 const PersonDetail = () => {
@@ -14,9 +14,6 @@ const PersonDetail = () => {
         };
         getDetail();
     }, [id]);
-
-    const country =
-        Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
 
     return (
         <>
@@ -49,7 +46,8 @@ const PersonDetail = () => {
                 <p>
                     <strong>Sídlo:</strong>
                     <br />
-                    {person.street}, {person.city},{person.zip}, {country}
+                    {person.street}, {person.city},{person.zip},{" "}
+                    {countryFormatter(person.country)}
                 </p>
                 <p>
                     <strong>Poznámka:</strong>
