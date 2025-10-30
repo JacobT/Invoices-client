@@ -3,7 +3,7 @@ import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
 
 const InvoiceIndex = () => {
-    const { invoices, invoiceStatistics, deleteInvoice } = useInvoiceIndex();
+    const { invoices, invoiceStatistics, handleDelete } = useInvoiceIndex();
 
     return (
         <div className="pb-5">
@@ -27,7 +27,7 @@ const InvoiceIndex = () => {
             <hr />
             <p>Počet faktur: {invoices.length}</p>
             <hr />
-            <InvoiceTable items={invoices} deleteInvoice={deleteInvoice} />
+            <InvoiceTable items={invoices} deleteInvoice={handleDelete} />
             <hr />
             <Link to={"/invoices/create"} className="btn btn-success">
                 Nová Faktura

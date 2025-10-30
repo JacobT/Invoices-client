@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const useInvoiceDetail = () => {
+export const useInvoiceDetail = (id) => {
     const navigate = useNavigate();
-    const { id } = useParams();
-
-    const isEdit = useLocation().pathname.includes("/edit/");
-    const mode = id ? (isEdit ? "edit" : "show") : "create";
 
     const [invoice, setInvoice] = useState({
         invoiceNumber: "",
@@ -66,8 +62,6 @@ export const useInvoiceDetail = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(invoice);
-
         if (id) {
             await apiPut("/api/invoices/" + id, invoice);
         } else {
@@ -77,5 +71,5 @@ export const useInvoiceDetail = () => {
         navigate("/invoices");
     };
 
-    return { mode, invoice, people, handleChange, handleSubmit };
+    return { invoice, people, handleChange, handleSubmit };
 };
