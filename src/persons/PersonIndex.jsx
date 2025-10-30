@@ -1,32 +1,14 @@
-import { useState, useEffect } from "react";
-import { apiDelete, apiGet } from "../utils/api";
-import PersonTable from "./PersonTable";
+import PersonTable from "./components/PersonTable";
+import { usePersonIndex } from "./hooks/usePersonIndex";
+
 const PersonIndex = () => {
-    const [persons, setPersons] = useState([]);
-    const [personsStatistics, setPersonsStatistics] = useState([]);
-
-    const deletePerson = async (id) => {
-        try {
-            await apiDelete("/api/persons/" + id);
-        } catch (error) {
-            console.log(error.message);
-            alert(error.message);
-        }
-        setPersons(persons.filter((item) => item._id !== id));
-    };
-
-    useEffect(() => {
-        apiGet("/api/persons").then((data) => setPersons(data));
-        apiGet("/api/persons/statistics").then((data) =>
-            setPersonsStatistics(data)
-        );
-    }, []);
+    const { persons, personsStatistics, handleDelete } = usePersonIndex();
 
     return (
         <div>
             <h1>Seznam osob</h1>
             <PersonTable
-                deletePerson={deletePerson}
+                deletePerson={handleDelete}
                 items={persons}
                 statistics={personsStatistics}
                 label="Počet osob:"
