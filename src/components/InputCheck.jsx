@@ -1,4 +1,4 @@
-export function InputCheck(props) {
+export const InputCheck = (props) => {
     // podporované typy pro element input
     const INPUTS = ["checkbox", "radio"];
 
@@ -26,6 +26,6 @@ export function InputCheck(props) {
             </label>
         </div>
     );
-}
+};
 
 export default InputCheck;

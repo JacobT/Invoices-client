@@ -1,5 +1,5 @@
-export function FlashMessage({ theme, text }) {
+export const FlashMessage = ({ theme, text }) => {
     return <div className={"alert alert-" + theme}>{text}</div>;
-}
+};
 
 export default FlashMessage;

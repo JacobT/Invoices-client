@@ -1,4 +1,4 @@
-export function InputSelect({
+export const InputSelect = ({
     required = false,
     label,
     name,
@@ -7,7 +7,7 @@ export function InputSelect({
     prompt,
     items,
     ...props
-}) {
+}) => {
     return (
         <div className="form-group">
             {label && <label>{label}:</label>}
@@ -31,7 +31,7 @@ export function InputSelect({
             </select>
         </div>
     );
-}
+};
 
 export default InputSelect;
 

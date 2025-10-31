@@ -1,4 +1,4 @@
-export function InputField({
+export const InputField = ({
     type,
     required = false,
     min = null,
@@ -9,7 +9,7 @@ export function InputField({
     value,
     handleChange,
     ...props
-}) {
+}) => {
     // podporované typy pro element input
     const INPUTS = ["text", "number", "date"];
 
@@ -54,6 +54,6 @@ export function InputField({
             )}
         </div>
     );
-}
+};
 
 export default InputField;
