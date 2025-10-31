@@ -9,7 +9,6 @@ import {
 
 import PersonIndex from "./persons/PersonIndex";
 import PersonDetail from "./persons/PersonDetail";
-import PersonForm from "./persons/PersonForm";
 import InvoiceIndex from "./invoices/InvoiceIndex";
 import InvoiceDetail from "./invoices/InvoiceDetail";
 
@@ -37,8 +36,8 @@ export function App() {
                     <Route path="/persons">
                         <Route index element={<PersonIndex />} />
                         <Route path="show/:id" element={<PersonDetail />} />
-                        <Route path="create" element={<PersonForm />} />
-                        <Route path="edit/:id" element={<PersonForm />} />
+                        <Route path="create" element={<PersonDetail />} />
+                        <Route path="edit/:id" element={<PersonDetail />} />
                     </Route>
                     <Route path="/invoices">
                         <Route index element={<InvoiceIndex />} />

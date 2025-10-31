@@ -7,6 +7,7 @@ const PersonIndex = () => {
     return (
         <div>
             <h1>Seznam osob</h1>
+            <hr />
             <PersonTable
                 deletePerson={handleDelete}
                 items={persons}

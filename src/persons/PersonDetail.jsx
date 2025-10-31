@@ -1,61 +1,46 @@
-import { useState, useEffect } from "react";
+import FlashMessage from "../components/FlashMessage";
+import { usePersonDetail } from "./hooks/usePersonDetail";
 import { useParams } from "react-router-dom";
-import { countryFormatter } from "../utils/countryFormatter";
-import { apiGet } from "../utils/api";
+import { usePageMode } from "../hooks/usePageMode";
+import PersonLayout from "./components/PersonLayout";
 
 const PersonDetail = () => {
     const { id } = useParams();
-    const [person, setPerson] = useState({});
-
-    useEffect(() => {
-        const getDetail = async () => {
-            const detail = await apiGet("/api/persons/" + id);
-            setPerson(detail);
-        };
-        getDetail();
-    }, [id]);
+    const mode = usePageMode(id);
+    const {
+        person,
+        sentState,
+        successState,
+        errorState,
+        handleChange,
+        handleSubmit,
+    } = usePersonDetail(id);
+    const layoutProps = { mode, person, handleChange };
 
     return (
-        <>
-            <div>
-                <h1>Detail osoby</h1>
-                <hr />
-                <h3>
-                    {person.name} ({person.identificationNumber})
-                </h3>
-                <p>
-                    <strong>DIČ:</strong>
-                    <br />
-                    {person.taxNumber}
-                </p>
-                <p>
-                    <strong>Bankovní účet:</strong>
-                    <br />
-                    {person.accountNumber}/{person.bankCode} ({person.iban})
-                </p>
-                <p>
-                    <strong>Tel.:</strong>
-                    <br />
-                    {person.telephone}
-                </p>
-                <p>
-                    <strong>Mail:</strong>
-                    <br />
-                    {person.mail}
-                </p>
-                <p>
-                    <strong>Sídlo:</strong>
-                    <br />
-                    {person.street}, {person.city},{person.zip},{" "}
-                    {countryFormatter(person.country)}
-                </p>
-                <p>
-                    <strong>Poznámka:</strong>
-                    <br />
-                    {person.note}
-                </p>
-            </div>
-        </>
+        <div>
+            {errorState ? (
+                <div className="alert alert-danger">{errorState}</div>
+            ) : null}
+            {sentState && (
+                <FlashMessage
+                    theme={successState ? "success" : ""}
+                    text={
+                        successState
+                            ? "Uložení osobnosti proběhlo úspěšně."
+                            : ""
+                    }
+                />
+            )}
+
+            {mode === "show" ? (
+                <PersonLayout {...layoutProps} />
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <PersonLayout {...layoutProps} />
+                </form>
+            )}
+        </div>
     );
 };
 
