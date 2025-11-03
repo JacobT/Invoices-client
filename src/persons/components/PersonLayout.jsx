@@ -44,7 +44,16 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                     <div className="col">
                         <EditableField
                             mode={mode}
-                            label={<strong>IČO: </strong>}
+                            label={
+                                <strong>
+                                    IČO:{" "}
+                                    {mode === "edit" && (
+                                        <small className="text-warning">
+                                            (nelze změnit)
+                                        </small>
+                                    )}
+                                </strong>
+                            }
                             display={person.identificationNumber}
                             input={
                                 <InputField
@@ -55,6 +64,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                                     prompt="Zadejte IČO"
                                     value={person.identificationNumber}
                                     handleChange={handleChange}
+                                    disabled={mode === "edit"}
                                 />
                             }
                         />
