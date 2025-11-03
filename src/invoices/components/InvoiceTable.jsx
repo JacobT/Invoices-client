@@ -1,19 +1,25 @@
 import { Link } from "react-router-dom";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
+import { apiDelete } from "../../utils/api";
 
-const InvoiceTable = ({ items, deleteInvoice }) => {
+const InvoiceTable = ({ items, setItems, apiPath }) => {
+    const handleDelete = async (id) => {
+        await apiDelete(apiPath + id);
+        setItems(items.filter((item) => item._id != id));
+    };
+
     return (
         <div className="table-responsive">
-            <table className="table table-bordered">
-                <thead>
+            <table className="table table-bordered table-striped table-hover">
+                <thead className="table-light">
                     <tr>
                         <th>#</th>
                         <th>Faktura</th>
                         <th>Datum vydání</th>
                         <th>Datum splatnosti</th>
                         <th>Cena</th>
+                        <th>Dodavatel</th>
                         <th>Odběratel</th>
-                        <th>Prodejce</th>
                         <th>Akce</th>
                     </tr>
                 </thead>
@@ -25,8 +31,8 @@ const InvoiceTable = ({ items, deleteInvoice }) => {
                             <td>{dateStringFormatter(item.issued, true)}</td>
                             <td>{dateStringFormatter(item.dueDate, true)}</td>
                             <td>{item.price}</td>
-                            <td>{item.buyer.name}</td>
                             <td>{item.seller.name}</td>
+                            <td>{item.buyer.name}</td>
                             <td>
                                 <div className="btn-group">
                                     <Link
@@ -42,7 +48,7 @@ const InvoiceTable = ({ items, deleteInvoice }) => {
                                         Upravit
                                     </Link>
                                     <button
-                                        onClick={() => deleteInvoice(item._id)}
+                                        onClick={() => handleDelete(item._id)}
                                         className="btn btn-sm btn-danger"
                                     >
                                         Odstranit

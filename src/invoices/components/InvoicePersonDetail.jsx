@@ -4,7 +4,7 @@ const InvoicePersonDetail = ({ person }) => {
     if (!person || !person.name) return null;
 
     return (
-        <div className="invoice-person-detail">
+        <div className="person-detail">
             <p>
                 <strong>IČO:</strong> {person.identificationNumber}
             </p>

@@ -1,14 +1,21 @@
 const API_URL = "https://localhost:7071";
 
+export class ApiRequestError extends Error {
+    constructor(response) {
+        super(
+            `There was error when fetching data ${response.status} - ${response.statusText}`
+        );
+        this.response = response;
+    }
+}
+
 const fetchData = (url, requestOptions) => {
     const apiUrl = `${API_URL}${url}`;
 
     return fetch(apiUrl, requestOptions)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(
-                    `Network response was not ok: ${response.status} ${response.statusText}`
-                );
+                throw new ApiRequestError(response);
             }
 
             if (requestOptions.method !== "DELETE") return response.json();

@@ -3,25 +3,41 @@ import { usePersonDetail } from "./hooks/usePersonDetail";
 import { useParams } from "react-router-dom";
 import { usePageMode } from "../hooks/usePageMode";
 import PersonLayout from "./components/PersonLayout";
+import InvoiceTable from "../invoices/components/InvoiceTable";
 
 const PersonDetail = () => {
     const { id } = useParams();
     const mode = usePageMode(id);
+
     const {
         person,
+        receivedInvoices,
+        setReceivedInvoices,
+        sentInvoices,
+        setSentInvoices,
         sentState,
         successState,
         errorState,
         handleChange,
         handleSubmit,
-    } = usePersonDetail(id);
+    } = usePersonDetail(mode, id);
+
     const layoutProps = { mode, person, handleChange };
+
+    const recievedInvoicesProps = {
+        items: receivedInvoices,
+        setItems: setReceivedInvoices,
+        apiPath: "/api/invoices/",
+    };
+    const sentInvoicesProps = {
+        items: sentInvoices,
+        setItems: setSentInvoices,
+        apiPath: "/api/invoices/",
+    };
 
     return (
         <div>
-            {errorState ? (
-                <div className="alert alert-danger">{errorState}</div>
-            ) : null}
+            {errorState && <FlashMessage theme="danger" text={errorState} />}
             {sentState && (
                 <FlashMessage
                     theme={successState ? "success" : ""}
@@ -34,7 +50,21 @@ const PersonDetail = () => {
             )}
 
             {mode === "show" ? (
-                <PersonLayout {...layoutProps} />
+                <>
+                    <PersonLayout {...layoutProps} />
+                    {sentInvoices.length > 0 && (
+                        <>
+                            <h3>Vydané faktury:</h3>
+                            <InvoiceTable {...sentInvoicesProps} />
+                        </>
+                    )}
+                    {receivedInvoices.length > 0 && (
+                        <>
+                            <h3>Přijaté faktury:</h3>
+                            <InvoiceTable {...recievedInvoicesProps} />
+                        </>
+                    )}
+                </>
             ) : (
                 <form onSubmit={handleSubmit}>
                     <PersonLayout {...layoutProps} />

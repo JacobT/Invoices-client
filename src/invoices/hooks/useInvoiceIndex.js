@@ -23,12 +23,7 @@ export const useInvoiceIndex = () => {
             setInvoiceStatistics(response);
         };
         getStatistics();
-    }, []);
+    }, [invoices]);
 
-    const handleDelete = async (id) => {
-        await apiDelete("/api/invoices/" + id);
-        setInvoices(invoices.filter((invoice) => invoice._id != id));
-    };
-
-    return { invoices, invoiceStatistics, handleDelete };
+    return { invoices, setInvoices, invoiceStatistics };
 };

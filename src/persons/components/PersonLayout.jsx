@@ -161,7 +161,6 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                             display={person.note}
                             input={
                                 <InputField
-                                    required={true}
                                     type="textarea"
                                     name="note"
                                     rows="3"

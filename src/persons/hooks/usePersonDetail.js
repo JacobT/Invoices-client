@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { apiGet, apiPost, apiPut } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
+import { ApiRequestError, apiGet, apiPost, apiPut } from "../../utils/api";
 import { Country } from "../../utils/countryFormatter";
-import { usePageMode } from "../../hooks/usePageMode";
 
-export const usePersonDetail = (id) => {
+export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
 
     const [person, setPerson] = useState({
@@ -22,28 +21,61 @@ export const usePersonDetail = (id) => {
         country: Country.CZECHIA,
         note: "",
     });
+    const [receivedInvoices, setReceivedInvoices] = useState([]);
+    const [sentInvoices, setSentInvoices] = useState([]);
 
     const [sentState, setSent] = useState(false);
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
 
     useEffect(() => {
-        if (id) {
-            apiGet("/api/persons/" + id).then((data) => setPerson(data));
-        }
+        const getPerson = async () => {
+            if (id) {
+                try {
+                    setPerson(await apiGet("/api/persons/" + id));
+                } catch (error) {
+                    console.log(error.message);
+                    setError(error.message);
+                }
+            }
+        };
+        getPerson();
     }, [id]);
+
+    useEffect(() => {
+        if (mode !== "show" || !person?.identificationNumber) return;
+
+        const getInvoices = async (url, setter) => {
+            try {
+                setter(await apiGet(url));
+            } catch (error) {
+                if (
+                    error instanceof ApiRequestError &&
+                    error.response.status === 404
+                ) {
+                    setter([]);
+                } else {
+                    console.log(error.message);
+                    setError(error.message);
+                }
+            }
+        };
+        const id = person.identificationNumber;
+        getInvoices(`/api/identification/${id}/purchases`, setReceivedInvoices);
+        getInvoices(`/api/identification/${id}/sales`, setSentInvoices);
+    }, [person, mode]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        (id
+        (mode === "edit"
             ? apiPut("/api/persons/" + id, person)
             : apiPost("/api/persons", person)
         )
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                navigate("/persons");
+                // navigate("/persons");
             })
             .catch((error) => {
                 console.log(error.message);
@@ -63,6 +95,10 @@ export const usePersonDetail = (id) => {
 
     return {
         person,
+        receivedInvoices,
+        setReceivedInvoices,
+        sentInvoices,
+        setSentInvoices,
         sentState,
         successState,
         errorState,
