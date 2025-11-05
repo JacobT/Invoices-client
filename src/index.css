@@ -5,3 +5,7 @@
 .form-container > .row {
   margin-bottom: 1rem;
 }
+
+.narrow-container {
+  max-width: 960px;
+}

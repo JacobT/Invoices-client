@@ -1,31 +1,61 @@
 import { Link } from "react-router-dom";
 import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
+import InvoiceFilter from "./components/InvoiceFilter";
 
 const InvoiceIndex = () => {
-    const { invoices, setInvoices, invoiceStatistics } = useInvoiceIndex();
+    const {
+        invoices,
+        setInvoices,
+        invoiceStatistics,
+        showFilter,
+        toggleFilter,
+    } = useInvoiceIndex();
 
     return (
         <div className="pb-5">
             <h1>Seznam faktur</h1>
-            <div className="row text-center">
-                <div className="col">
-                    <p>
-                        Celkový počet faktur: {invoiceStatistics.invoicesCount}
-                    </p>
+            <hr />
+            <div className="container">
+                <div className="row text-center">
+                    <div className="col">
+                        <p className="mb-0">
+                            <strong>Celkový počet faktur: </strong>
+                            {invoiceStatistics.invoicesCount}
+                        </p>
+                    </div>
+                    <div className="col">
+                        <p className="mb-0">
+                            <strong>Souhrn příjmů za tento rok: </strong>
+                            {invoiceStatistics.currentYearSum}
+                        </p>
+                    </div>
+                    <div className="col">
+                        <p className="mb-0">
+                            <strong>Celkový souhrn příjmů: </strong>
+                            {invoiceStatistics.allTimeSum}
+                        </p>
+                    </div>
                 </div>
-                <div className="col">
-                    <p>
-                        Souhrn příjmů za tento rok:{" "}
-                        {invoiceStatistics.currentYearSum}
-                    </p>
-                </div>
-                <div className="col">
-                    <p>Celkový souhrn příjmů: {invoiceStatistics.allTimeSum}</p>
+                <hr />
+                <div className="row">
+                    <div className="col d-flex align-items-center">
+                        <p className="m-0">
+                            Počet nalezených faktur: {invoices.length}
+                        </p>
+                    </div>
+                    <div className="col text-end">
+                        <input
+                            type="button"
+                            className="btn btn-primary"
+                            value="Filtr"
+                            onClick={toggleFilter}
+                        />
+                    </div>
                 </div>
             </div>
+            <InvoiceFilter showFilter={showFilter} setInvoices={setInvoices} />
             <hr />
-            <p>Počet faktur: {invoices.length}</p>
             <InvoiceTable
                 items={invoices}
                 setItems={setInvoices}

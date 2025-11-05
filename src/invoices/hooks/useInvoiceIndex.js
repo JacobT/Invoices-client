@@ -9,6 +9,9 @@ export const useInvoiceIndex = () => {
         invoicesCount: "",
     });
 
+    const [showFilter, setShowFilter] = useState(false);
+    const toggleFilter = () => setShowFilter(!showFilter);
+
     useEffect(() => {
         const getInvoices = async () => {
             const response = await apiGet("/api/invoices");
@@ -25,5 +28,11 @@ export const useInvoiceIndex = () => {
         getStatistics();
     }, [invoices]);
 
-    return { invoices, setInvoices, invoiceStatistics };
+    return {
+        invoices,
+        setInvoices,
+        invoiceStatistics,
+        showFilter,
+        toggleFilter,
+    };
 };
