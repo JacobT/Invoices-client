@@ -15,9 +15,7 @@ const PersonDetail = () => {
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
-        sentState,
-        successState,
-        errorState,
+        errorsState,
         handleChange,
         handleSubmit,
     } = usePersonDetail(mode, id);
@@ -37,16 +35,8 @@ const PersonDetail = () => {
 
     return (
         <div>
-            {errorState && <FlashMessage theme="danger" text={errorState} />}
-            {sentState && (
-                <FlashMessage
-                    theme={successState ? "success" : ""}
-                    text={
-                        successState
-                            ? "Uložení osobnosti proběhlo úspěšně."
-                            : ""
-                    }
-                />
+            {errorsState.length > 0 && (
+                <FlashMessage theme="danger" text={errorsState} />
             )}
 
             {mode === "show" ? (

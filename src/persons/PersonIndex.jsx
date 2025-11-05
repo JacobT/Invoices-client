@@ -1,11 +1,17 @@
 import PersonTable from "./components/PersonTable";
+import FlashMessage from "../components/FlashMessage";
 import { usePersonIndex } from "./hooks/usePersonIndex";
 
 const PersonIndex = () => {
-    const { persons, personsStatistics, handleDelete } = usePersonIndex();
+    const { persons, personsStatistics, errorsState, handleDelete } =
+        usePersonIndex();
 
     return (
         <div>
+            {errorsState.length > 0 && (
+                <FlashMessage theme="danger" text={errorsState} />
+            )}
+
             <h1>Seznam osob</h1>
             <hr />
             <PersonTable

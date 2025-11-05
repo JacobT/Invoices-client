@@ -1,11 +1,12 @@
 const API_URL = "https://localhost:7071";
 
 export class ApiRequestError extends Error {
-    constructor(response) {
+    constructor(response, message) {
         super(
-            `There was error when fetching data ${response.status} - ${response.statusText}`
+            `There was error when fetching data ${response.status} - ${message}`
         );
         this.response = response;
+        this.message = message;
     }
 }
 
@@ -13,9 +14,10 @@ const fetchData = (url, requestOptions) => {
     const apiUrl = `${API_URL}${url}`;
 
     return fetch(apiUrl, requestOptions)
-        .then((response) => {
+        .then(async (response) => {
             if (!response.ok) {
-                throw new ApiRequestError(response);
+                const message = await response.text();
+                throw new ApiRequestError(response, message);
             }
 
             if (requestOptions.method !== "DELETE") return response.json();

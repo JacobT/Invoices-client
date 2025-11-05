@@ -6,7 +6,12 @@ export const FlashMessage = ({ theme, text }) => {
             }
             role="alert"
         >
-            <strong>{text}</strong>
+            <strong>
+                {Array.isArray(text)
+                    ? text.map((item, index) => <div key={index}>{item}</div>)
+                    : text}
+            </strong>
+
             <button
                 type="button"
                 className="btn-close"

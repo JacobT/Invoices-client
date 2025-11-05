@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ApiRequestError, apiGet, apiPost, apiPut } from "../../utils/api";
+import { useHandleErrors } from "../../hooks/useHandleErrors";
+import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { Country } from "../../utils/countryFormatter";
 
 export const usePersonDetail = (mode, id) => {
@@ -24,9 +25,7 @@ export const usePersonDetail = (mode, id) => {
     const [receivedInvoices, setReceivedInvoices] = useState([]);
     const [sentInvoices, setSentInvoices] = useState([]);
 
-    const [sentState, setSent] = useState(false);
-    const [successState, setSuccess] = useState(false);
-    const [errorState, setError] = useState(null);
+    const { errorsState, handleErrors, clearErrors } = useHandleErrors();
 
     useEffect(() => {
         const getPerson = async () => {
@@ -34,8 +33,7 @@ export const usePersonDetail = (mode, id) => {
                 try {
                     setPerson(await apiGet("/api/persons/" + id));
                 } catch (error) {
-                    console.log(error.message);
-                    setError(error.message);
+                    handleErrors("Chyba při načítání osoby", error);
                 }
             }
         };
@@ -49,40 +47,38 @@ export const usePersonDetail = (mode, id) => {
             try {
                 setter(await apiGet(url));
             } catch (error) {
-                if (
-                    error instanceof ApiRequestError &&
-                    error.response.status === 404
-                ) {
-                    setter([]);
-                } else {
-                    console.log(error.message);
-                    setError(error.message);
-                }
+                handleErrors("Chyba při načítání faktur", error, () =>
+                    setter([])
+                );
             }
         };
-        const id = person.identificationNumber;
-        getInvoices(`/api/identification/${id}/purchases`, setReceivedInvoices);
-        getInvoices(`/api/identification/${id}/sales`, setSentInvoices);
-    }, [person, mode]);
 
-    const handleSubmit = (e) => {
+        const identificationNumber = person.identificationNumber;
+        getInvoices(
+            `/api/identification/${identificationNumber}/purchases`,
+            setReceivedInvoices
+        );
+        getInvoices(
+            `/api/identification/${identificationNumber}/sales`,
+            setSentInvoices
+        );
+    }, [person.identificationNumber, mode]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        (mode === "edit"
-            ? apiPut("/api/persons/" + id, person)
-            : apiPost("/api/persons", person)
-        )
-            .then((data) => {
-                setSent(true);
-                setSuccess(true);
-                // navigate("/persons");
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setError(error.message);
-                setSent(true);
-                setSuccess(false);
-            });
+        clearErrors();
+        try {
+            if (mode === "edit") {
+                await apiPut("/api/persons/" + id, person);
+            } else {
+                await apiPost("/api/persons", person);
+            }
+
+            navigate("/persons"); //TODO send success state
+        } catch (error) {
+            handleErrors("Chyba při ukládání osoby", error);
+        }
     };
 
     const handleChange = (e) => {
@@ -99,9 +95,7 @@ export const usePersonDetail = (mode, id) => {
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
-        sentState,
-        successState,
-        errorState,
+        errorsState,
         handleChange,
         handleSubmit,
     };
