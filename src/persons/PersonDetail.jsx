@@ -52,6 +52,7 @@ const PersonDetail = () => {
             {mode === "show" ? (
                 <>
                     <PersonLayout {...layoutProps} />
+                    <hr />
                     {sentInvoices.length > 0 && (
                         <>
                             <h3>Vydané faktury:</h3>

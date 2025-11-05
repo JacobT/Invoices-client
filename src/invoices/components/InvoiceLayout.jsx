@@ -8,7 +8,7 @@ import InvoiceProductInput from "./InvoiceProductInput";
 
 const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
     return (
-        <div className="my-3">
+        <div className="my-3 container narrow-container">
             {mode === "show" ? (
                 <h1>Faktura č.{invoice.invoiceNumber}</h1>
             ) : (

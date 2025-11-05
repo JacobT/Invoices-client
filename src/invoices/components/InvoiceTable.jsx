@@ -9,7 +9,7 @@ const InvoiceTable = ({ items, setItems, apiPath }) => {
     };
 
     return (
-        <div className="table-responsive">
+        <div className="table-responsive mb-3">
             <table className="table table-bordered table-striped table-hover">
                 <thead className="table-light">
                     <tr>

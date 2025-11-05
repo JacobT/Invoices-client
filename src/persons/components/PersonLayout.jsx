@@ -15,7 +15,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                     : "Vytvořit osobnost"}
             </h1>
             <hr />
-            <div className="container form-container">
+            <div className="container form-container narrow-container">
                 <div className="row">
                     <div className="col">
                         <EditableField
@@ -181,13 +181,17 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                         />
                     </div>
                 </div>
-                {mode !== "show" && (
-                    <input
-                        type="submit"
-                        className="btn btn-primary"
-                        value="Uložit"
-                    />
-                )}
+                <div className="row">
+                    <div className="col text-center">
+                        {mode !== "show" && (
+                            <input
+                                type="submit"
+                                className="btn btn-primary"
+                                value="Uložit"
+                            />
+                        )}
+                    </div>
+                </div>
             </div>
         </>
     );

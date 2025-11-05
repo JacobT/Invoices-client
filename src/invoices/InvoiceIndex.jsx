@@ -37,7 +37,9 @@ const InvoiceIndex = () => {
                         </p>
                     </div>
                 </div>
-                <hr />
+            </div>
+            <hr />
+            <div className="container">
                 <div className="row">
                     <div className="col d-flex align-items-center">
                         <p className="m-0">
