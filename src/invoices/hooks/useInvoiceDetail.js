@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export const useInvoiceDetail = (id) => {
     const navigate = useNavigate();
@@ -22,23 +23,30 @@ export const useInvoiceDetail = (id) => {
     });
 
     const [people, setPeople] = useState([]);
+    const { handleErrors, clearErrors } = useErrorContext();
 
     useEffect(() => {
         if (id) {
             const getInvoice = async () => {
-                const invoice = await apiGet("/api/invoices/" + id);
-                setInvoice(invoice);
+                try {
+                    setInvoice(await apiGet("/api/invoices/" + id));
+                } catch (error) {
+                    handleErrors("Chyba při načítání faktury", error);
+                }
             };
             getInvoice();
         }
     }, [id]);
 
     useEffect(() => {
-        const getData = async () => {
-            const data = await apiGet("/api/persons");
-            setPeople(data);
+        const getPeople = async () => {
+            try {
+                setPeople(await apiGet("/api/persons"));
+            } catch (error) {
+                handleErrors("Chyba při načítání osob", error);
+            }
         };
-        getData();
+        getPeople();
     }, []);
 
     const handleChange = (e) => {
@@ -62,13 +70,18 @@ export const useInvoiceDetail = (id) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (id) {
-            await apiPut("/api/invoices/" + id, invoice);
-        } else {
-            await apiPost("/api/invoices", invoice);
+        clearErrors();
+        try {
+            if (id) {
+                await apiPut("/api/invoices/" + id, invoice);
+            } else {
+                await apiPost("/api/invoices", invoice);
+            }
+        } catch (error) {
+            handleErrors("Chyba při ukládání faktury", error);
         }
 
-        navigate("/invoices");
+        navigate("/invoices"); //TODO send success state
     };
 
     return { invoice, people, handleChange, handleSubmit };

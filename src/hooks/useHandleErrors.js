@@ -16,7 +16,6 @@ export const useHandleErrors = () => {
                 setEmptyState();
             } else {
                 console.log(error);
-
                 addError(`${message}: "${error.message}"`);
             }
         } else {

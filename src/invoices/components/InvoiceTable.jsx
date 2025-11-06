@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
-import { apiDelete } from "../../utils/api";
+import { useInvoiceTable } from "../hooks/useInvoiceTable";
 
-const InvoiceTable = ({ items, setItems, apiPath }) => {
-    const handleDelete = async (id) => {
-        await apiDelete(apiPath + id);
-        setItems(items.filter((item) => item._id != id));
-    };
+const InvoiceTable = ({ items, setItems }) => {
+    const handleDelete = useInvoiceTable(items, setItems);
 
     return (
         <div className="table-responsive mb-3">

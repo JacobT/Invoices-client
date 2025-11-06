@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useHandleErrors } from "../../hooks/useHandleErrors";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { Country } from "../../utils/countryFormatter";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const usePersonDetail = (mode, id) => {
     const [receivedInvoices, setReceivedInvoices] = useState([]);
     const [sentInvoices, setSentInvoices] = useState([]);
 
-    const { errorsState, handleErrors, clearErrors } = useHandleErrors();
+    const { handleErrors, clearErrors } = useErrorContext();
 
     useEffect(() => {
         const getPerson = async () => {
@@ -47,9 +47,9 @@ export const usePersonDetail = (mode, id) => {
             try {
                 setter(await apiGet(url));
             } catch (error) {
-                handleErrors("Chyba při načítání faktur", error, () =>
-                    setter([])
-                );
+                handleErrors("Chyba při načítání faktur", error, () => {
+                    setter([]);
+                });
             }
         };
 
@@ -95,7 +95,6 @@ export const usePersonDetail = (mode, id) => {
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
-        errorsState,
         handleChange,
         handleSubmit,
     };

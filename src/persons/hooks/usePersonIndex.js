@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { apiDelete, apiGet } from "../../utils/api";
-import { useHandleErrors } from "../../hooks/useHandleErrors";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export const usePersonIndex = () => {
     const [persons, setPersons] = useState([]);
     const [personsStatistics, setPersonsStatistics] = useState([]);
-    const { errorsState, handleErrors, clearErrors } = useHandleErrors();
+    const { handleErrors, clearErrors } = useErrorContext();
 
     useEffect(() => {
         const getPeople = async () => {
@@ -40,5 +40,5 @@ export const usePersonIndex = () => {
         }
     };
 
-    return { persons, personsStatistics, errorsState, handleDelete };
+    return { persons, personsStatistics, handleDelete };
 };

@@ -1,4 +1,3 @@
-import FlashMessage from "../components/FlashMessage";
 import { usePersonDetail } from "./hooks/usePersonDetail";
 import { useParams } from "react-router-dom";
 import { usePageMode } from "../hooks/usePageMode";
@@ -15,30 +14,14 @@ const PersonDetail = () => {
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
-        errorsState,
         handleChange,
         handleSubmit,
     } = usePersonDetail(mode, id);
 
     const layoutProps = { mode, person, handleChange };
 
-    const recievedInvoicesProps = {
-        items: receivedInvoices,
-        setItems: setReceivedInvoices,
-        apiPath: "/api/invoices/",
-    };
-    const sentInvoicesProps = {
-        items: sentInvoices,
-        setItems: setSentInvoices,
-        apiPath: "/api/invoices/",
-    };
-
     return (
         <div>
-            {errorsState.length > 0 && (
-                <FlashMessage theme="danger" text={errorsState} />
-            )}
-
             {mode === "show" ? (
                 <>
                     <PersonLayout {...layoutProps} />
@@ -46,13 +29,19 @@ const PersonDetail = () => {
                     {sentInvoices.length > 0 && (
                         <>
                             <h3>Vydané faktury:</h3>
-                            <InvoiceTable {...sentInvoicesProps} />
+                            <InvoiceTable
+                                items={sentInvoices}
+                                setItems={setSentInvoices}
+                            />
                         </>
                     )}
                     {receivedInvoices.length > 0 && (
                         <>
                             <h3>Přijaté faktury:</h3>
-                            <InvoiceTable {...recievedInvoicesProps} />
+                            <InvoiceTable
+                                items={receivedInvoices}
+                                setItems={setReceivedInvoices}
+                            />
                         </>
                     )}
                 </>

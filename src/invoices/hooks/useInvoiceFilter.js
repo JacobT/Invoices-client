@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { apiGet, ApiRequestError } from "../../utils/api";
+import { apiGet } from "../../utils/api";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export const useInvoiceFilter = (setInvoices) => {
     const [filter, setFilter] = useState({
@@ -14,10 +15,15 @@ export const useInvoiceFilter = (setInvoices) => {
     });
 
     const [people, setPeople] = useState([]);
+    const { handleErrors, clearErrors } = useErrorContext();
 
     useEffect(() => {
         const getPeople = async () => {
-            setPeople(await apiGet("/api/persons"));
+            try {
+                setPeople(await apiGet("/api/persons"));
+            } catch (error) {
+                handleErrors("Chyba při načítání osob", error);
+            }
         };
         getPeople();
     }, []);
@@ -43,19 +49,17 @@ export const useInvoiceFilter = (setInvoices) => {
         });
     };
 
-    const applyFilter = async () => {
+    const applyFilter = async (e) => {
+        e.preventDefault();
+
+        clearErrors();
         try {
             const response = await apiGet("/api/invoices", filter);
             setInvoices(response);
         } catch (error) {
-            if (
-                error instanceof ApiRequestError &&
-                error.response.status === 404
-            ) {
-                setInvoices([]);
-            } else {
-                throw error;
-            }
+            handleErrors("Chyba při načítání faktur", error, () =>
+                setInvoices([])
+            );
         }
     };
 

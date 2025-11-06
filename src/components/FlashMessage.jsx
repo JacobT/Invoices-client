@@ -1,9 +1,8 @@
-export const FlashMessage = ({ theme, text }) => {
+export const FlashMessage = ({ theme, text, onClose }) => {
     return (
         <div
-            className={
-                "alert text-center my-4 alert-dismissible alert-" + theme
-            }
+            className={`alert text-center my-4 alert-${theme}
+                ${onClose ? " alert-dismissible" : ""}`}
             role="alert"
         >
             <strong>
@@ -12,20 +11,15 @@ export const FlashMessage = ({ theme, text }) => {
                     : text}
             </strong>
 
-            <button
-                type="button"
-                className="btn-close"
-                onClick={hideAlert}
-            ></button>
+            {onClose && (
+                <button
+                    type="button"
+                    className="btn-close"
+                    onClick={onClose}
+                ></button>
+            )}
         </div>
     );
-};
-
-const hideAlert = (e) => {
-    e.preventDefault();
-
-    const alert = e.target.parentNode;
-    alert.classList.add("d-none");
 };
 
 export default FlashMessage;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { apiDelete, apiGet } from "../../utils/api";
+import { apiGet } from "../../utils/api";
+import { useErrorContext } from "../../contexts/ErrorContext";
 
 export const useInvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
@@ -11,19 +12,28 @@ export const useInvoiceIndex = () => {
 
     const [showFilter, setShowFilter] = useState(false);
     const toggleFilter = () => setShowFilter(!showFilter);
+    const { handleErrors } = useErrorContext();
 
     useEffect(() => {
         const getInvoices = async () => {
-            const response = await apiGet("/api/invoices");
-            setInvoices(response);
+            try {
+                const response = await apiGet("/api/invoices");
+                setInvoices(response);
+            } catch (error) {
+                handleErrors("Chyba při načítání faktur", error);
+            }
         };
         getInvoices();
     }, []);
 
     useEffect(() => {
         const getStatistics = async () => {
-            const response = await apiGet("/api/invoices/statistics");
-            setInvoiceStatistics(response);
+            try {
+                const response = await apiGet("/api/invoices/statistics");
+                setInvoiceStatistics(response);
+            } catch (error) {
+                handleErrors("Chyba při načítání statistik", error);
+            }
         };
         getStatistics();
     }, [invoices]);
