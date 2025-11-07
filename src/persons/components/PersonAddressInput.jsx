@@ -4,9 +4,9 @@ import { Country } from "../../utils/countryFormatter";
 
 const PersonAddressInput = ({ person, handleChange }) => {
     return (
-        <>
-            <div className="row mb-1">
-                <div className="col">
+        <div className="form-container">
+            <div className="row">
+                <div className="col-12 col-md mb-1">
                     <InputField
                         required={true}
                         type="text"
@@ -17,7 +17,7 @@ const PersonAddressInput = ({ person, handleChange }) => {
                         handleChange={handleChange}
                     />
                 </div>
-                <div className="col-4">
+                <div className="col">
                     <InputField
                         required={true}
                         type="text"
@@ -28,7 +28,7 @@ const PersonAddressInput = ({ person, handleChange }) => {
                         handleChange={handleChange}
                     />
                 </div>
-                <div className="col-3">
+                <div className="col-4">
                     <InputField
                         required={true}
                         type="text"
@@ -67,7 +67,7 @@ const PersonAddressInput = ({ person, handleChange }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

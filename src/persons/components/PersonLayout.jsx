@@ -3,17 +3,27 @@ import EditableField from "../../components/inputs/EditableField";
 import PersonBankAccountInput from "./PersonBankAccountInput";
 import countryFormatter from "../../utils/countryFormatter";
 import PersonAddressInput from "./PersonAddressInput";
+import LinkButton from "../../components/navigation/LinkButton";
 
 const PersonLayout = ({ mode, person, handleChange }) => {
     return (
         <>
-            <h1>
-                {mode === "show"
-                    ? "Detail osoby"
-                    : mode === "edit"
-                    ? "Upravit osobu"
-                    : "Vytvořit osobu"}
-            </h1>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h1>
+                            {mode === "show"
+                                ? "Detail osoby"
+                                : mode === "edit"
+                                ? "Upravit osobu"
+                                : "Vytvořit osobu"}
+                        </h1>
+                    </div>
+                    <div className="col-auto d-flex align-items-center">
+                        <LinkButton url={"/persons"} label={"Zpět na seznam"} />
+                    </div>
+                </div>
+            </div>
             <hr />
             <div className="container form-container narrow-container">
                 <div className="row">
@@ -106,7 +116,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                 </div>
 
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12 col-md">
                         <EditableField
                             mode={mode}
                             label={<strong>Tel.: </strong>}
@@ -124,7 +134,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                             }
                         />
                     </div>
-                    <div className="col">
+                    <div className="col-12 col-md">
                         <EditableField
                             mode={mode}
                             label={<strong>Mail: </strong>}

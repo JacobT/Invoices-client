@@ -3,7 +3,7 @@ import InputField from "../../components/inputs/InputField";
 const InvoiceProductInput = ({ invoice, handleChange }) => {
     return (
         <div className="row mb-3">
-            <div className="col">
+            <div className="col d-flex align-items-end">
                 <strong>
                     <InputField
                         required={true}
@@ -16,27 +16,27 @@ const InvoiceProductInput = ({ invoice, handleChange }) => {
                     />
                 </strong>
             </div>
-            <div className="col">
+            <div className="col d-flex align-items-end">
                 <strong>
                     <InputField
                         required={true}
                         type="number"
                         name="price"
                         label="Cena"
-                        prompt="Zadejte cenu"
+                        prompt="Cena"
                         value={invoice.price}
                         handleChange={handleChange}
                     />
                 </strong>
             </div>
-            <div className="col">
+            <div className="col d-flex align-items-end">
                 <strong>
                     <InputField
                         required={true}
                         type="number"
                         name="vat"
                         label="DPH [%]"
-                        prompt="Uveďte procento DPH"
+                        prompt="DPH"
                         value={invoice.vat}
                         handleChange={handleChange}
                     />
