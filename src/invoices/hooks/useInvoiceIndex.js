@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
+import { useSuccessState } from "../../hooks/useSuccessState";
 
 export const useInvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
@@ -13,6 +14,7 @@ export const useInvoiceIndex = () => {
     const [showFilter, setShowFilter] = useState(false);
     const toggleFilter = () => setShowFilter(!showFilter);
     const { handleErrors } = useErrorContext();
+    const [sentState, setSentState] = useSuccessState("sent");
 
     useEffect(() => {
         const getInvoices = async () => {
@@ -44,5 +46,7 @@ export const useInvoiceIndex = () => {
         invoiceStatistics,
         showFilter,
         toggleFilter,
+        sentState,
+        setSentState,
     };
 };

@@ -1,11 +1,21 @@
+import SuccessDisplay from "../components/SuccessDisplay";
 import PersonTable from "./components/PersonTable";
 import { usePersonIndex } from "./hooks/usePersonIndex";
 
 const PersonIndex = () => {
-    const { persons, personsStatistics, handleDelete } = usePersonIndex();
+    const {
+        persons,
+        personsStatistics,
+        sentState,
+        setSentState,
+        handleDelete,
+    } = usePersonIndex();
 
     return (
         <div>
+            {sentState && (
+                <SuccessDisplay state={sentState} setState={setSentState} />
+            )}
             <h1>Seznam osob</h1>
             <hr />
             <PersonTable

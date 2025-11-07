@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useErrorContext } from "../../contexts/ErrorContext";
+import { createSuccessState } from "../../utils/createSuccessState";
 
 export const useInvoiceDetail = (id) => {
     const navigate = useNavigate();
@@ -81,7 +82,9 @@ export const useInvoiceDetail = (id) => {
             handleErrors("Chyba při ukládání faktury", error);
         }
 
-        navigate("/invoices"); //TODO send success state
+        navigate("/invoices", {
+            state: createSuccessState("sent", "Faktura byla úspěšně uložena."),
+        });
     };
 
     return { invoice, people, handleChange, handleSubmit };

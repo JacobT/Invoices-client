@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { Country } from "../../utils/countryFormatter";
 import { useErrorContext } from "../../contexts/ErrorContext";
+import { createSuccessState } from "../../utils/createSuccessState";
 
 export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
@@ -75,7 +76,12 @@ export const usePersonDetail = (mode, id) => {
                 await apiPost("/api/persons", person);
             }
 
-            navigate("/persons"); //TODO send success state
+            navigate("/persons", {
+                state: createSuccessState(
+                    "sent",
+                    "Osoba byla úspěšně uložena."
+                ),
+            });
         } catch (error) {
             handleErrors("Chyba při ukládání osoby", error);
         }

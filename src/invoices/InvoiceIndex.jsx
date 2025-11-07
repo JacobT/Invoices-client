@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
 import InvoiceFilter from "./components/InvoiceFilter";
+import SuccessDisplay from "../components/SuccessDisplay";
 
 const InvoiceIndex = () => {
     const {
@@ -10,10 +11,15 @@ const InvoiceIndex = () => {
         invoiceStatistics,
         showFilter,
         toggleFilter,
+        sentState,
+        setSentState,
     } = useInvoiceIndex();
 
     return (
         <div className="pb-5">
+            {sentState && (
+                <SuccessDisplay state={sentState} setState={setSentState} />
+            )}
             <h1>Seznam faktur</h1>
             <hr />
             <div className="container">
