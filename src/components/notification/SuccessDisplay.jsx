@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import FlashMessage from "../components/FlashMessage.jsx";
+import FlashMessage from "./FlashMessage.jsx";
 
 const SuccessDisplay = ({ state, setState }) => {
     useEffect(() => {

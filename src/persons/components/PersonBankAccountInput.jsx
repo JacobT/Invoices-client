@@ -1,4 +1,4 @@
-import InputField from "../../components/InputField";
+import InputField from "../../components/inputs/InputField";
 
 const PersonBankAccountInput = ({ person, handleChange }) => {
     return (

@@ -1,5 +1,5 @@
-import InputField from "../../components/InputField";
-import InputSelect from "../../components/InputSelect";
+import InputField from "../../components/inputs/InputField";
+import InputSelect from "../../components/inputs/InputSelect";
 import { useInvoiceFilter } from "../hooks/useInvoiceFilter";
 
 const InvoiceFilter = ({ showFilter, setInvoices }) => {

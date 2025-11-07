@@ -1,61 +1,29 @@
-import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Routes,
-    Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { ErrorProvider } from "./contexts/ErrorContext";
-import PersonIndex from "./persons/PersonIndex";
-import PersonDetail from "./persons/PersonDetail";
-import InvoiceIndex from "./invoices/InvoiceIndex";
-import InvoiceDetail from "./invoices/InvoiceDetail";
-import ErrorDisplay from "./components/ErrorDisplay";
+import Navbar from "./components/navigation/Navbar";
+import ErrorDisplay from "./components/notification/ErrorDisplay";
+import Footer from "./components/navigation/Footer";
+import personRoutes from "./components/navigation/routes/PersonRoutes";
+import invoiceRoutes from "./components/navigation/routes/InvoiceRoutes";
 
 export function App() {
     return (
         <Router>
             <ErrorProvider>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to={"/persons"} className="nav-link">
-                                Osoby
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/invoices"} className="nav-link">
-                                Faktury
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
+                <div className="d-flex flex-column min-vh-100">
+                    <Navbar />
 
-                <div className="container">
-                    <ErrorDisplay />
+                    <main className="container py-4 flex-grow-1">
+                        <ErrorDisplay />
 
-                    <Routes>
-                        <Route index element={<Navigate to={"/persons"} />} />
-                        <Route path="/persons">
-                            <Route index element={<PersonIndex />} />
-                            <Route path="show/:id" element={<PersonDetail />} />
-                            <Route path="create" element={<PersonDetail />} />
-                            <Route path="edit/:id" element={<PersonDetail />} />
-                        </Route>
-                        <Route path="/invoices">
-                            <Route index element={<InvoiceIndex />} />
-                            <Route
-                                path="show/:id"
-                                element={<InvoiceDetail />}
-                            />
-                            <Route path="create" element={<InvoiceDetail />} />
-                            <Route
-                                path="edit/:id"
-                                element={<InvoiceDetail />}
-                            />
-                        </Route>
-                    </Routes>
+                        <Routes>
+                            {personRoutes}
+                            {invoiceRoutes}
+                        </Routes>
+                    </main>
+
+                    <Footer />
                 </div>
             </ErrorProvider>
         </Router>

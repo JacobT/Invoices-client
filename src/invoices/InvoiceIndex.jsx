@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
 import InvoiceFilter from "./components/InvoiceFilter";
-import SuccessDisplay from "../components/SuccessDisplay";
+import SuccessDisplay from "../components/notification/SuccessDisplay";
 
 const InvoiceIndex = () => {
     const {
@@ -16,7 +16,7 @@ const InvoiceIndex = () => {
     } = useInvoiceIndex();
 
     return (
-        <div className="pb-5">
+        <div>
             {sentState && (
                 <SuccessDisplay state={sentState} setState={setSentState} />
             )}

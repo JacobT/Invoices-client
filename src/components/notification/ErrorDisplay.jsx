@@ -1,4 +1,4 @@
-import { useErrorContext } from "../contexts/ErrorContext";
+import { useErrorContext } from "../../contexts/ErrorContext";
 import FlashMessage from "./FlashMessage";
 
 const ErrorDisplay = () => {

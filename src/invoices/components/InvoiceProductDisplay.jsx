@@ -3,7 +3,7 @@ const InvoiceProductDisplay = ({ invoice }) => {
         <div className="row mb-3">
             <div className="table-responsive">
                 <table className="table table-sm table-bordered">
-                    <thead>
+                    <thead className="table-light">
                         <tr>
                             <th>Položka:</th>
                             <th>Cena:</th>

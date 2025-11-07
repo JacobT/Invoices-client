@@ -1,5 +1,5 @@
-import InputField from "../../components/InputField";
-import InputCheck from "../../components/InputCheck";
+import InputField from "../../components/inputs/InputField";
+import InputCheck from "../../components/inputs/InputCheck";
 import { Country } from "../../utils/countryFormatter";
 
 const PersonAddressInput = ({ person, handleChange }) => {

@@ -7,51 +7,55 @@ const PersonTable = ({ label, items, statistics, deletePerson }) => {
                 {label} {items.length}
             </p>
 
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Jméno</th>
-                        <th>Celkové příjmy</th>
-                        <th colSpan={3}>Akce</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item, index) => (
-                        <tr key={index + 1}>
-                            <td>{index + 1}</td>
-                            <td>{item.name}</td>
-                            <td>
-                                {statistics.filter(
-                                    (person) => person.personId == item._id
-                                )[0]?.totalRevenue ?? 0}
-                            </td>
-                            <td>
-                                <div className="btn-group">
-                                    <Link
-                                        to={"/persons/show/" + item._id}
-                                        className="btn btn-sm btn-info"
-                                    >
-                                        Zobrazit
-                                    </Link>
-                                    <Link
-                                        to={"/persons/edit/" + item._id}
-                                        className="btn btn-sm btn-warning"
-                                    >
-                                        Upravit
-                                    </Link>
-                                    <button
-                                        onClick={() => deletePerson(item._id)}
-                                        className="btn btn-sm btn-danger"
-                                    >
-                                        Odstranit
-                                    </button>
-                                </div>
-                            </td>
+            <div className="table-responsive mb-3">
+                <table className="table table-bordered table-striped table-hover">
+                    <thead className="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Jméno</th>
+                            <th>Celkové příjmy</th>
+                            <th colSpan={3}>Akce</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {items.map((item, index) => (
+                            <tr key={index + 1}>
+                                <td>{index + 1}</td>
+                                <td>{item.name}</td>
+                                <td>
+                                    {statistics.filter(
+                                        (person) => person.personId == item._id
+                                    )[0]?.totalRevenue ?? 0}
+                                </td>
+                                <td>
+                                    <div className="btn-group">
+                                        <Link
+                                            to={"/persons/show/" + item._id}
+                                            className="btn btn-sm btn-info"
+                                        >
+                                            Zobrazit
+                                        </Link>
+                                        <Link
+                                            to={"/persons/edit/" + item._id}
+                                            className="btn btn-sm btn-warning"
+                                        >
+                                            Upravit
+                                        </Link>
+                                        <button
+                                            onClick={() =>
+                                                deletePerson(item._id)
+                                            }
+                                            className="btn btn-sm btn-danger"
+                                        >
+                                            Odstranit
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <Link to={"/persons/create"} className="btn btn-success">
                 Nová osoba
             </Link>

@@ -1,4 +1,4 @@
-import SuccessDisplay from "../components/SuccessDisplay";
+import SuccessDisplay from "../components/notification/SuccessDisplay";
 import PersonTable from "./components/PersonTable";
 import { usePersonIndex } from "./hooks/usePersonIndex";
 

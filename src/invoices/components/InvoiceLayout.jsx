@@ -1,36 +1,52 @@
-import InputField from "../../components/InputField";
-import InputSelect from "../../components/InputSelect";
+import InputField from "../../components/inputs/InputField";
+import InputSelect from "../../components/inputs/InputSelect";
 import InvoicePersonDetail from "./InvoicePersonDetail";
-import EditableField from "../../components/EditableField";
+import EditableField from "../../components/inputs/EditableField";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
 import InvoiceProductDisplay from "./InvoiceProductDisplay";
 import InvoiceProductInput from "./InvoiceProductInput";
+import LinkButton from "../../components/navigation/LinkButton";
 
 const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
     return (
-        <div className="my-3 container narrow-container">
-            {mode === "show" ? (
-                <h1>Faktura č.{invoice.invoiceNumber}</h1>
-            ) : (
-                <div className="d-flex align-items-center gap-2">
-                    <h1 className="m-0">
-                        {mode === "edit" ? "Upravit " : "Vytvořit "}fakturu č.
-                    </h1>
-                    <InputField
-                        required={true}
-                        type="number"
-                        name="invoiceNumber"
-                        prompt="Zadejte číslo faktury"
-                        value={invoice.invoiceNumber}
-                        handleChange={handleChange}
-                        style={{ maxWidth: "15ch" }}
-                    />
-                </div>
-            )}
-            <hr />
-            <div className="container form-container">
+        <>
+            <div className="container">
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col">
+                        {mode === "show" ? (
+                            <h1 className="m-0">
+                                Faktura č.{invoice.invoiceNumber}
+                            </h1>
+                        ) : (
+                            <div className="d-flex flex-wrap align-items-center gap-2">
+                                <h1 className="m-0">
+                                    {mode === "edit" ? "Upravit " : "Vytvořit "}
+                                    fakturu č.
+                                </h1>
+                                <InputField
+                                    required={true}
+                                    type="number"
+                                    name="invoiceNumber"
+                                    prompt="Zadejte číslo faktury"
+                                    value={invoice.invoiceNumber}
+                                    handleChange={handleChange}
+                                    style={{ maxWidth: "15ch" }}
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <div className="col-auto d-flex align-items-center">
+                        <LinkButton
+                            url={"/invoices"}
+                            label={"Zpět na seznam"}
+                        />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div className="container narrow-container form-container">
+                <div className="row">
+                    <div className="col-12 col-md-6 mb-3 mb-md-0">
                         <EditableField
                             mode={mode}
                             label={<h4>Dodavatel:</h4>}
@@ -48,7 +64,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                         />
                         <InvoicePersonDetail person={invoice.seller} />
                     </div>
-                    <div className="col-6">
+                    <div className="col-12 col-md-6">
                         <EditableField
                             mode={mode}
                             label={<h4>Odběratel:</h4>}
@@ -156,7 +172,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,5 +1,5 @@
-import InputField from "../../components/InputField";
-import EditableField from "../../components/EditableField";
+import InputField from "../../components/inputs/InputField";
+import EditableField from "../../components/inputs/EditableField";
 import PersonBankAccountInput from "./PersonBankAccountInput";
 import countryFormatter from "../../utils/countryFormatter";
 import PersonAddressInput from "./PersonAddressInput";
@@ -11,8 +11,8 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                 {mode === "show"
                     ? "Detail osoby"
                     : mode === "edit"
-                    ? "Upravit osobnost"
-                    : "Vytvořit osobnost"}
+                    ? "Upravit osobu"
+                    : "Vytvořit osobu"}
             </h1>
             <hr />
             <div className="container form-container narrow-container">
