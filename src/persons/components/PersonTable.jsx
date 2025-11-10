@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { ShowIcon, EditIcon, DeleteIcon } from "../../assets/icons/icons";
 import TableActions from "../../components/actions/TableActions";
 
 const PersonTable = ({ label, items, statistics, deletePerson }) => {
@@ -45,9 +43,6 @@ const PersonTable = ({ label, items, statistics, deletePerson }) => {
                     </tbody>
                 </table>
             </div>
-            <Link to={"/persons/create"} className="btn bg-success">
-                Nová osoba
-            </Link>
         </div>
     );
 };

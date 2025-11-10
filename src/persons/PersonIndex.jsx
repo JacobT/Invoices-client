@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import SuccessDisplay from "../components/notification/SuccessDisplay";
 import PersonTable from "./components/PersonTable";
 import { usePersonIndex } from "./hooks/usePersonIndex";
+import LoadingDisplay from "../components/layout/LoadingDisplay";
 
 const PersonIndex = () => {
     const {
@@ -8,6 +10,7 @@ const PersonIndex = () => {
         personsStatistics,
         sentState,
         setSentState,
+        isLoading,
         handleDelete,
     } = usePersonIndex();
 
@@ -18,12 +21,19 @@ const PersonIndex = () => {
             )}
             <h1>Seznam osob</h1>
             <hr />
-            <PersonTable
-                deletePerson={handleDelete}
-                items={persons}
-                statistics={personsStatistics}
-                label="Počet osob:"
-            />
+            {isLoading ? (
+                <LoadingDisplay />
+            ) : (
+                <PersonTable
+                    deletePerson={handleDelete}
+                    items={persons}
+                    statistics={personsStatistics}
+                    label="Počet osob:"
+                />
+            )}
+            <Link to={"/persons/create"} className="btn bg-success">
+                Nová osoba
+            </Link>
         </div>
     );
 };

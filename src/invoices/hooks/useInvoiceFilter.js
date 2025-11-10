@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
 
-export const useInvoiceFilter = (setInvoices) => {
+export const useInvoiceFilter = (setInvoices, setLoading) => {
     const [filter, setFilter] = useState({
         invoiceNumber: "",
         fromDate: "",
@@ -53,6 +53,7 @@ export const useInvoiceFilter = (setInvoices) => {
         e.preventDefault();
 
         clearErrors();
+        setLoading(true);
         try {
             const response = await apiGet("/api/invoices", filter);
             setInvoices(response);
@@ -60,6 +61,8 @@ export const useInvoiceFilter = (setInvoices) => {
             handleErrors("Chyba při načítání faktur", error, () =>
                 setInvoices([])
             );
+        } finally {
+            setLoading(false);
         }
     };
 

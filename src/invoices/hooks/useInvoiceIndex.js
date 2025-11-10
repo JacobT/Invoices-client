@@ -5,7 +5,7 @@ import { useSuccessState } from "../../hooks/useSuccessState";
 
 export const useInvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
-    const [invoiceStatistics, setInvoiceStatistics] = useState({
+    const [statistics, setStatistics] = useState({
         currentYearSum: "",
         allTimeSum: "",
         invoicesCount: "",
@@ -15,6 +15,8 @@ export const useInvoiceIndex = () => {
     const toggleFilter = () => setShowFilter(!showFilter);
     const { handleErrors } = useErrorContext();
     const [sentState, setSentState] = useSuccessState("sent");
+    const [invoicesLoading, setInvoicesLoading] = useState(true);
+    const [statisticsLoading, setStatisticsLoading] = useState(true);
 
     useEffect(() => {
         const getInvoices = async () => {
@@ -23,6 +25,8 @@ export const useInvoiceIndex = () => {
                 setInvoices(response);
             } catch (error) {
                 handleErrors("Chyba při načítání faktur", error);
+            } finally {
+                setInvoicesLoading(false);
             }
         };
         getInvoices();
@@ -32,9 +36,11 @@ export const useInvoiceIndex = () => {
         const getStatistics = async () => {
             try {
                 const response = await apiGet("/api/invoices/statistics");
-                setInvoiceStatistics(response);
+                setStatistics(response);
             } catch (error) {
                 handleErrors("Chyba při načítání statistik", error);
+            } finally {
+                setStatisticsLoading(false);
             }
         };
         getStatistics();
@@ -43,7 +49,10 @@ export const useInvoiceIndex = () => {
     return {
         invoices,
         setInvoices,
-        invoiceStatistics,
+        invoicesLoading,
+        setInvoicesLoading,
+        statistics,
+        statisticsLoading,
         showFilter,
         toggleFilter,
         sentState,

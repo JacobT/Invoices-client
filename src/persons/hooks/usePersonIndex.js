@@ -9,6 +9,7 @@ export const usePersonIndex = () => {
 
     const { handleErrors, clearErrors } = useErrorContext();
     const [sentState, setSentState] = useSuccessState("sent");
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const getPeople = async () => {
@@ -16,6 +17,8 @@ export const usePersonIndex = () => {
                 setPersons(await apiGet("/api/persons"));
             } catch (error) {
                 handleErrors("Chyba při načítání osob", error);
+            } finally {
+                setLoading(false);
             }
         };
         getPeople();
@@ -27,6 +30,8 @@ export const usePersonIndex = () => {
                 setPersonsStatistics(await apiGet("/api/persons/statistics"));
             } catch (error) {
                 handleErrors("Chyba při načítání statistik", error);
+            } finally {
+                setLoading(false);
             }
         };
         getStatistics();
@@ -48,6 +53,7 @@ export const usePersonIndex = () => {
         personsStatistics,
         sentState,
         setSentState,
+        isLoading,
         handleDelete,
     };
 };

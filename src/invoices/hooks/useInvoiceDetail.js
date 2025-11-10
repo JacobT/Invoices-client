@@ -25,18 +25,21 @@ export const useInvoiceDetail = (id) => {
 
     const [people, setPeople] = useState([]);
     const { handleErrors, clearErrors } = useErrorContext();
+    const [invoiceLoading, setInvoiceLoading] = useState(true);
+    const [peopleLoading, setPeopleLoading] = useState(true);
 
     useEffect(() => {
-        if (id) {
-            const getInvoice = async () => {
+        const getInvoice = async () => {
+            if (id) {
                 try {
                     setInvoice(await apiGet("/api/invoices/" + id));
                 } catch (error) {
                     handleErrors("Chyba při načítání faktury", error);
                 }
-            };
-            getInvoice();
-        }
+            }
+            setInvoiceLoading(false);
+        };
+        getInvoice();
     }, [id]);
 
     useEffect(() => {
@@ -45,6 +48,8 @@ export const useInvoiceDetail = (id) => {
                 setPeople(await apiGet("/api/persons"));
             } catch (error) {
                 handleErrors("Chyba při načítání osob", error);
+            } finally {
+                setPeopleLoading(false);
             }
         };
         getPeople();
@@ -87,5 +92,11 @@ export const useInvoiceDetail = (id) => {
         });
     };
 
-    return { invoice, people, handleChange, handleSubmit };
+    return {
+        invoice,
+        people,
+        isLoading: invoiceLoading && peopleLoading,
+        handleChange,
+        handleSubmit,
+    };
 };

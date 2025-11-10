@@ -2,9 +2,9 @@ import InputField from "../../components/inputs/InputField";
 import InputSelect from "../../components/inputs/InputSelect";
 import { useInvoiceFilter } from "../hooks/useInvoiceFilter";
 
-const InvoiceFilter = ({ showFilter, setInvoices }) => {
+const InvoiceFilter = ({ showFilter, setInvoices, setLoading }) => {
     const { filter, people, handleChange, resetFilter, applyFilter } =
-        useInvoiceFilter(setInvoices);
+        useInvoiceFilter(setInvoices, setLoading);
 
     if (!showFilter) return null;
 

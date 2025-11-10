@@ -3,12 +3,17 @@ import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
 import InvoiceFilter from "./components/InvoiceFilter";
 import SuccessDisplay from "../components/notification/SuccessDisplay";
+import LoadingDisplay from "../components/layout/LoadingDisplay";
+import StatisticsDisplay from "./components/StatisticsDisplay";
 
 const InvoiceIndex = () => {
     const {
         invoices,
         setInvoices,
-        invoiceStatistics,
+        invoicesLoading,
+        setInvoicesLoading,
+        statistics,
+        statisticsLoading,
         showFilter,
         toggleFilter,
         sentState,
@@ -22,28 +27,11 @@ const InvoiceIndex = () => {
             )}
             <h1>Seznam faktur</h1>
             <hr />
-            <div className="container">
-                <div className="row text-center">
-                    <div className="col">
-                        <p className="mb-0">
-                            <strong>Celkový počet faktur: </strong>
-                            {invoiceStatistics.invoicesCount}
-                        </p>
-                    </div>
-                    <div className="col">
-                        <p className="mb-0">
-                            <strong>Souhrn příjmů za tento rok: </strong>
-                            {invoiceStatistics.currentYearSum}
-                        </p>
-                    </div>
-                    <div className="col">
-                        <p className="mb-0">
-                            <strong>Celkový souhrn příjmů: </strong>
-                            {invoiceStatistics.allTimeSum}
-                        </p>
-                    </div>
-                </div>
-            </div>
+            {statisticsLoading ? (
+                <LoadingDisplay />
+            ) : (
+                <StatisticsDisplay statistics={statistics} />
+            )}
             <hr />
             <div className="container">
                 <div className="row">
@@ -62,14 +50,21 @@ const InvoiceIndex = () => {
                     </div>
                 </div>
             </div>
-            <InvoiceFilter showFilter={showFilter} setInvoices={setInvoices} />
-            <hr />
-            <InvoiceTable
-                items={invoices}
-                setItems={setInvoices}
-                apiPath={"/api/invoices/"}
+            <InvoiceFilter
+                showFilter={showFilter}
+                setInvoices={setInvoices}
+                setLoading={setInvoicesLoading}
             />
             <hr />
+            {invoicesLoading ? (
+                <LoadingDisplay />
+            ) : (
+                <InvoiceTable
+                    items={invoices}
+                    setItems={setInvoices}
+                    apiPath={"/api/invoices/"}
+                />
+            )}
             <Link to={"/invoices/create"} className="btn bg-success">
                 Nová Faktura
             </Link>

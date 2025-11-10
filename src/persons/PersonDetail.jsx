@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { usePageMode } from "../hooks/usePageMode";
 import PersonLayout from "./components/PersonLayout";
 import InvoiceTable from "../invoices/components/InvoiceTable";
+import LoadingDisplay from "../components/layout/LoadingDisplay";
 
 const PersonDetail = () => {
     const { id } = useParams();
@@ -10,15 +11,19 @@ const PersonDetail = () => {
 
     const {
         person,
+        personLoading,
         receivedInvoices,
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
+        invoicesLoading,
         handleChange,
         handleSubmit,
     } = usePersonDetail(mode, id);
 
     const layoutProps = { mode, person, handleChange };
+
+    if (id && personLoading) return <LoadingDisplay />;
 
     return (
         <div>
@@ -26,22 +31,28 @@ const PersonDetail = () => {
                 <>
                     <PersonLayout {...layoutProps} />
                     <hr />
-                    {sentInvoices.length > 0 && (
+                    {invoicesLoading ? (
+                        <LoadingDisplay />
+                    ) : (
                         <>
-                            <h3>Vydané faktury:</h3>
-                            <InvoiceTable
-                                items={sentInvoices}
-                                setItems={setSentInvoices}
-                            />
-                        </>
-                    )}
-                    {receivedInvoices.length > 0 && (
-                        <>
-                            <h3>Přijaté faktury:</h3>
-                            <InvoiceTable
-                                items={receivedInvoices}
-                                setItems={setReceivedInvoices}
-                            />
+                            {sentInvoices.length > 0 && (
+                                <>
+                                    <h3>Vydané faktury:</h3>
+                                    <InvoiceTable
+                                        items={sentInvoices}
+                                        setItems={setSentInvoices}
+                                    />
+                                </>
+                            )}
+                            {receivedInvoices.length > 0 && (
+                                <>
+                                    <h3>Přijaté faktury:</h3>
+                                    <InvoiceTable
+                                        items={receivedInvoices}
+                                        setItems={setReceivedInvoices}
+                                    />
+                                </>
+                            )}
                         </>
                     )}
                 </>

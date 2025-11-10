@@ -27,6 +27,10 @@ export const usePersonDetail = (mode, id) => {
     const [sentInvoices, setSentInvoices] = useState([]);
 
     const { handleErrors, clearErrors } = useErrorContext();
+    const [personLoading, setPersonLoading] = useState(true);
+    const [receivedInvoicesLoading, setRecievedInvoicesLoading] =
+        useState(true);
+    const [sentInvoicesLoading, setsentInvoicesLoading] = useState(true);
 
     useEffect(() => {
         const getPerson = async () => {
@@ -37,31 +41,42 @@ export const usePersonDetail = (mode, id) => {
                     handleErrors("Chyba při načítání osoby", error);
                 }
             }
+            setPersonLoading(false);
         };
         getPerson();
     }, [id]);
 
     useEffect(() => {
-        if (mode !== "show" || !person?.identificationNumber) return;
+        if (mode !== "show") return;
 
-        const getInvoices = async (url, setter) => {
+        if (!person?.identificationNumber) {
+            setRecievedInvoicesLoading(false);
+            setsentInvoicesLoading(false);
+            return;
+        }
+
+        const getInvoices = async (url, setter, setLoading) => {
             try {
                 setter(await apiGet(url));
             } catch (error) {
                 handleErrors("Chyba při načítání faktur", error, () => {
                     setter([]);
                 });
+            } finally {
+                setLoading(false);
             }
         };
 
         const identificationNumber = person.identificationNumber;
         getInvoices(
             `/api/identification/${identificationNumber}/purchases`,
-            setReceivedInvoices
+            setReceivedInvoices,
+            setRecievedInvoicesLoading
         );
         getInvoices(
             `/api/identification/${identificationNumber}/sales`,
-            setSentInvoices
+            setSentInvoices,
+            setsentInvoicesLoading
         );
     }, [person.identificationNumber, mode]);
 
@@ -97,10 +112,12 @@ export const usePersonDetail = (mode, id) => {
 
     return {
         person,
+        personLoading,
         receivedInvoices,
         setReceivedInvoices,
         sentInvoices,
         setSentInvoices,
+        invoicesLoading: receivedInvoicesLoading && sentInvoicesLoading,
         handleChange,
         handleSubmit,
     };
