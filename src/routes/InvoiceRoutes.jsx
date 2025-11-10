@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
-import InvoiceIndex from "../../../invoices/InvoiceIndex";
-import InvoiceDetail from "../../../invoices/InvoiceDetail";
+import InvoiceIndex from "../invoices/InvoiceIndex";
+import InvoiceDetail from "../invoices/InvoiceDetail";
 
 const invoiceRoutes = (
     <>

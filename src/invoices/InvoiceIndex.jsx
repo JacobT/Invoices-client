@@ -55,7 +55,7 @@ const InvoiceIndex = () => {
                     <div className="col text-end">
                         <input
                             type="button"
-                            className="btn btn-primary"
+                            className="btn bg-primary"
                             value="Filtr"
                             onClick={toggleFilter}
                         />
@@ -70,7 +70,7 @@ const InvoiceIndex = () => {
                 apiPath={"/api/invoices/"}
             />
             <hr />
-            <Link to={"/invoices/create"} className="btn btn-success">
+            <Link to={"/invoices/create"} className="btn bg-success">
                 Nová Faktura
             </Link>
         </div>

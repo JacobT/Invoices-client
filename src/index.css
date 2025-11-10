@@ -27,3 +27,7 @@
   
   animation: fadeInOut 4s ease forwards;
 }
+
+.btn:not([class*="bg-opacity-"]) {
+  --bs-bg-opacity: 0.5;
+}

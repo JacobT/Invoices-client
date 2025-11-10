@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { ShowIcon, EditIcon, DeleteIcon } from "../../assets/icons/icons";
+import TableActions from "../../components/actions/TableActions";
 
 const PersonTable = ({ label, items, statistics, deletePerson }) => {
     return (
@@ -8,11 +10,12 @@ const PersonTable = ({ label, items, statistics, deletePerson }) => {
             </p>
 
             <div className="table-responsive mb-3">
-                <table className="table table-bordered table-striped table-hover">
-                    <thead className="table-light">
+                <table className="table table-bordered table-striped table-hover text-center align-middle">
+                    <thead className="table-light align-middle">
                         <tr>
                             <th>#</th>
-                            <th>Jméno</th>
+                            <th className="text-start">Jméno</th>
+                            <th>IČO</th>
                             <th>Celkové příjmy</th>
                             <th colSpan={3}>Akce</th>
                         </tr>
@@ -21,42 +24,28 @@ const PersonTable = ({ label, items, statistics, deletePerson }) => {
                         {items.map((item, index) => (
                             <tr key={index + 1}>
                                 <td>{index + 1}</td>
-                                <td>{item.name}</td>
+                                <td className="text-start">{item.name}</td>
+                                <td>{item.identificationNumber}</td>
                                 <td>
                                     {statistics.filter(
                                         (person) => person.personId == item._id
                                     )[0]?.totalRevenue ?? 0}
                                 </td>
                                 <td>
-                                    <div className="btn-group">
-                                        <Link
-                                            to={"/persons/show/" + item._id}
-                                            className="btn btn-sm btn-info"
-                                        >
-                                            Zobrazit
-                                        </Link>
-                                        <Link
-                                            to={"/persons/edit/" + item._id}
-                                            className="btn btn-sm btn-warning"
-                                        >
-                                            Upravit
-                                        </Link>
-                                        <button
-                                            onClick={() =>
-                                                deletePerson(item._id)
-                                            }
-                                            className="btn btn-sm btn-danger"
-                                        >
-                                            Odstranit
-                                        </button>
-                                    </div>
+                                    <TableActions
+                                        detailUrl={"/persons/show/" + item._id}
+                                        editUrl={"/persons/edit/" + item._id}
+                                        deleteItem={() =>
+                                            deletePerson(item._id)
+                                        }
+                                    />
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            <Link to={"/persons/create"} className="btn btn-success">
+            <Link to={"/persons/create"} className="btn bg-success">
                 Nová osoba
             </Link>
         </div>

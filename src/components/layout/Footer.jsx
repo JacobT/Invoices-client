@@ -4,7 +4,7 @@ const Footer = () => {
             <div className="container d-flex flex-column flex-sm-row justify-content-between align-items-center text-center text-sm-start">
                 <small>&copy; {new Date().getFullYear()} Invoices</small>
                 <small>
-                    Author:{" "}
+                    Autor:{" "}
                     <a
                         href="mailto:jakubtsch@gmail.com"
                         className="link-light text-decoration-none mt-2 mt-sm-0"

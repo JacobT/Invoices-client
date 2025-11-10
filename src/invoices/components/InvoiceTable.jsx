@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
 import { useInvoiceTable } from "../hooks/useInvoiceTable";
+import TableActions from "../../components/actions/TableActions";
 
 const InvoiceTable = ({ items, setItems }) => {
     const handleDelete = useInvoiceTable(items, setItems);
 
     return (
         <div className="table-responsive mb-3">
-            <table className="table table-bordered table-striped table-hover">
-                <thead className="table-light">
+            <table className="table table-bordered table-striped table-hover text-center align-middle">
+                <thead className="table-light align-middle">
                     <tr>
                         <th>#</th>
                         <th>Faktura</th>
@@ -31,26 +32,11 @@ const InvoiceTable = ({ items, setItems }) => {
                             <td>{item.seller.name}</td>
                             <td>{item.buyer.name}</td>
                             <td>
-                                <div className="btn-group">
-                                    <Link
-                                        to={"/invoices/show/" + item._id}
-                                        className="btn btn-sm btn-info"
-                                    >
-                                        Zobrazit
-                                    </Link>
-                                    <Link
-                                        to={"/invoices/edit/" + item._id}
-                                        className="btn btn-sm btn-warning"
-                                    >
-                                        Upravit
-                                    </Link>
-                                    <button
-                                        onClick={() => handleDelete(item._id)}
-                                        className="btn btn-sm btn-danger"
-                                    >
-                                        Odstranit
-                                    </button>
-                                </div>
+                                <TableActions
+                                    detailUrl={"/invoices/show/" + item._id}
+                                    editUrl={"/invoices/edit/" + item._id}
+                                    deleteItem={() => handleDelete(item._id)}
+                                />
                             </td>
                         </tr>
                     ))}

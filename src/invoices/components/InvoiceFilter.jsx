@@ -105,13 +105,13 @@ const InvoiceFilter = ({ showFilter, setInvoices }) => {
                     <div className="col-6 d-flex justify-content-end align-items-end gap-2">
                         <input
                             type="button"
-                            className="btn btn-danger"
+                            className="btn bg-danger"
                             value="Reset"
                             onClick={resetFilter}
                         />
                         <input
                             type="button"
-                            className="btn btn-primary"
+                            className="btn bg-primary"
                             value="Filtrovat"
                             onClick={applyFilter}
                         />

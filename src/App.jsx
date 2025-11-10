@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { ErrorProvider } from "./contexts/ErrorContext";
-import Navbar from "./components/navigation/Navbar";
+import Navbar from "./components/layout/Navbar";
 import ErrorDisplay from "./components/notification/ErrorDisplay";
-import Footer from "./components/navigation/Footer";
-import personRoutes from "./components/navigation/routes/PersonRoutes";
-import invoiceRoutes from "./components/navigation/routes/InvoiceRoutes";
+import Footer from "./components/layout/Footer";
+import personRoutes from "./routes/PersonRoutes";
+import invoiceRoutes from "./routes/InvoiceRoutes";
 
 export function App() {
     return (

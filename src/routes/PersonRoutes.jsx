@@ -1,6 +1,6 @@
 import { Route, Navigate } from "react-router-dom";
-import PersonIndex from "../../../persons/PersonIndex";
-import PersonDetail from "../../../persons/PersonDetail";
+import PersonIndex from "../persons/PersonIndex";
+import PersonDetail from "../persons/PersonDetail";
 
 const personRoutes = (
     <>

@@ -5,7 +5,7 @@ import EditableField from "../../components/inputs/EditableField";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
 import InvoiceProductDisplay from "./InvoiceProductDisplay";
 import InvoiceProductInput from "./InvoiceProductInput";
-import LinkButton from "../../components/navigation/LinkButton";
+import LinkButton from "../../components/actions/LinkButton";
 
 const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
     return (
@@ -165,7 +165,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                         {mode !== "show" && (
                             <input
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn bg-primary"
                                 value={"Uložit"}
                             />
                         )}

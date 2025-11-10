@@ -3,7 +3,7 @@ import EditableField from "../../components/inputs/EditableField";
 import PersonBankAccountInput from "./PersonBankAccountInput";
 import countryFormatter from "../../utils/countryFormatter";
 import PersonAddressInput from "./PersonAddressInput";
-import LinkButton from "../../components/navigation/LinkButton";
+import LinkButton from "../../components/actions/LinkButton";
 
 const PersonLayout = ({ mode, person, handleChange }) => {
     return (
@@ -196,7 +196,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                         {mode !== "show" && (
                             <input
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn bg-primary"
                                 value="Uložit"
                             />
                         )}
