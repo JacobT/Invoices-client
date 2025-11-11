@@ -7,10 +7,13 @@ import { createSuccessState } from "../../utils/createSuccessState";
 export const useInvoiceDetail = (id) => {
     const navigate = useNavigate();
 
+    const issued = new Date();
+    const dueDate = new Date();
+    dueDate.setDate(issued.getDate() + 30);
     const [invoice, setInvoice] = useState({
         invoiceNumber: "",
-        issued: new Date().toISOString(),
-        dueDate: new Date().toISOString(),
+        issued: issued.toISOString(),
+        dueDate: dueDate.toISOString(),
         product: "",
         price: "",
         vat: "",

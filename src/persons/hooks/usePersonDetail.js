@@ -8,6 +8,7 @@ import { createSuccessState } from "../../utils/createSuccessState";
 export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
 
+    let initialPerson = null;
     const [person, setPerson] = useState({
         name: "",
         identificationNumber: "",
@@ -27,6 +28,7 @@ export const usePersonDetail = (mode, id) => {
     const [sentInvoices, setSentInvoices] = useState([]);
 
     const { handleErrors, clearErrors } = useErrorContext();
+
     const [personLoading, setPersonLoading] = useState(true);
     const [receivedInvoicesLoading, setRecievedInvoicesLoading] =
         useState(true);
@@ -36,7 +38,9 @@ export const usePersonDetail = (mode, id) => {
         const getPerson = async () => {
             if (id) {
                 try {
-                    setPerson(await apiGet("/api/persons/" + id));
+                    const person = await apiGet("/api/persons/" + id);
+                    setPerson(person);
+                    initialPerson = person;
                 } catch (error) {
                     handleErrors("Chyba při načítání osoby", error);
                 }
@@ -86,7 +90,9 @@ export const usePersonDetail = (mode, id) => {
         clearErrors();
         try {
             if (mode === "edit") {
-                await apiPut("/api/persons/" + id, person);
+                if (JSON.stringify(initialPerson) === JSON.stringify(person)) {
+                    await apiPut("/api/persons/" + id, person);
+                }
             } else {
                 await apiPost("/api/persons", person);
             }
