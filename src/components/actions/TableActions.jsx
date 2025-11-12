@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import { ShowIcon, EditIcon, DeleteIcon } from "../../assets/icons/icons";
 
+/**
+ * Komponenta pro zobrazení tlačítek akcí v tabulce (detail, úprava, smazání).
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {string} props.detailUrl - Cesta k detailnímu zobrazení položky.
+ * @param {string} props.editUrl - Cesta pro úpravu položky.
+ * @param {Function} props.deleteItem - Funkce volaná při smazání položky.
+ * @returns {JSX.Element} Skupina tlačítek s akcemi tabulky.
+ */
 const TableActions = ({ detailUrl, editUrl, deleteItem }) => {
     return (
         <div className="btn-group">

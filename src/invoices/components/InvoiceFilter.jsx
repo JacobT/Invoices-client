@@ -2,11 +2,17 @@ import InputField from "../../components/inputs/InputField";
 import InputSelect from "../../components/inputs/InputSelect";
 import { useInvoiceFilter } from "../hooks/useInvoiceFilter";
 
-const InvoiceFilter = ({ showFilter, setInvoices, setLoading }) => {
+/**
+ * Komponenta pro filtrování faktur.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {Function} props.setInvoices - Funkce pro nastavení filtrovaného seznamu faktur.
+ * @param {Function} props.setLoading - Funkce pro nastavení stavu načítání během filtrování.
+ * @returns {JSX.Element} Formulář s poli pro zadání filtračních parametrů a ovládacími tlačítky.
+ */
+const InvoiceFilter = ({ setInvoices, setLoading }) => {
     const { filter, people, handleChange, resetFilter, applyFilter } =
         useInvoiceFilter(setInvoices, setLoading);
-
-    if (!showFilter) return null;
 
     return (
         <>

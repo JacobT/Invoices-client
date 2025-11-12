@@ -1,6 +1,11 @@
 import { useErrorContext } from "../../contexts/ErrorContext";
 import FlashMessage from "./FlashMessage";
 
+/**
+ * Komponenta pro zobrazení chybových hlášení z kontextu.
+ *
+ * @returns {JSX.Element} Kontejner se zprávou aktuální chyby.
+ */
 const ErrorDisplay = () => {
     const { errorsState, clearErrors } = useErrorContext();
 

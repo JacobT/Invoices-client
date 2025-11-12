@@ -1,8 +1,26 @@
 import { countryFormatter } from "../../utils/countryFormatter";
 
-const InvoicePersonDetail = ({ person }) => {
-    if (!person || !person.name) return null;
+/**
+ * Komponenta pro zobrazení detailních informací o osobě (dodavatel nebo odběratel) na faktuře.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {object} props.person - Objekt osoby obsahující identifikační a kontaktní údaje.
+ * @param {string} props.person.name - Jméno osoby.
+ * @param {string} props.person.identificationNumber - IČO (identifikační číslo osoby).
+ * @param {string} props.person.taxNumber - DIČ (daňové identifikační číslo).
+ * @param {string} props.person.accountNumber - Číslo bankovního účtu.
+ * @param {string} props.person.bankCode - Kód banky.
+ * @param {string} props.person.iban - IBAN účet.
+ * @param {string} props.person.telephone - Telefonní číslo osoby.
+ * @param {string} props.person.mail - E-mailová adresa osoby.
+ * @param {string} props.person.street - Ulice a číslo popisné.
+ * @param {string} props.person.city - Město.
+ * @param {string} props.person.zip - PSČ.
+ * @param {string} props.person.country - Země.
+ * @returns {JSX.Element|null} Blok s údaji o osobě.
+ */
 
+const InvoicePersonDetail = ({ person }) => {
     return (
         <div className="person-detail">
             <p>

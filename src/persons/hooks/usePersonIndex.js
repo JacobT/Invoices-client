@@ -3,6 +3,22 @@ import { apiDelete, apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
 import { useSuccessState as useSuccessState } from "../../hooks/useSuccessState";
 
+/**
+ * @typedef {Object} PersonIndexReturn
+ * @property {Array<Object>} persons - Pole všech osob.
+ * @property {Array<Object>} personsStatistics - Statistiky osob.
+ * @property {{ success: boolean, message: string } | null} sentState - Stav úspěšné akce (např. odeslání formuláře).
+ * @property {Function} setSentState - Funkce pro nastavení stavu `sentState`.
+ * @property {boolean} isLoading - Indikátor načítání dat.
+ * @property {Function} handleDelete - Funkce pro smazání osoby podle ID.
+ */
+
+/**
+ * Custom hook pro správu seznamu osob a jejich statistik.
+ *
+ * @hook
+ * @returns {PersonIndexReturn} Stav a funkce pro práci s osobami.
+ */
 export const usePersonIndex = () => {
     const [persons, setPersons] = useState([]);
     const [personsStatistics, setPersonsStatistics] = useState([]);
@@ -11,6 +27,9 @@ export const usePersonIndex = () => {
     const [sentState, setSentState] = useSuccessState("sent");
     const [isLoading, setLoading] = useState(true);
 
+    /**
+     * Načítá seznam osob z API a nastavuje stav načítání.
+     */
     useEffect(() => {
         const getPeople = async () => {
             try {
@@ -24,6 +43,9 @@ export const usePersonIndex = () => {
         getPeople();
     }, []);
 
+    /**
+     * Načítá statistiky osob z API a nastavuje stav načítání.
+     */
     useEffect(() => {
         const getStatistics = async () => {
             try {
@@ -37,6 +59,12 @@ export const usePersonIndex = () => {
         getStatistics();
     }, []);
 
+    /**
+     * Odstraní osobu podle ID a aktualizuje lokální stav.
+     *
+     * @async
+     * @param {string} id - ID osoby, která se má smazat.
+     */
     const handleDelete = async (id) => {
         clearErrors();
 

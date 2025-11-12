@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
 import { useInvoiceTable } from "../hooks/useInvoiceTable";
 import TableActions from "../../components/actions/TableActions";
 
+/**
+ * Komponenta pro zobrazení tabulky faktur.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {Array<object>} props.items - Pole objektů faktur, které se mají zobrazit.
+ * @param {Function} props.setItems - Funkce pro aktualizaci seznamu faktur.
+ * @returns {JSX.Element} Tabulka se seznamem faktur a akcemi.
+ */
 const InvoiceTable = ({ items, setItems }) => {
     const handleDelete = useInvoiceTable(items, setItems);
 

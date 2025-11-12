@@ -1,3 +1,15 @@
+/**
+ * Komponenta pro zobrazení selectu (rozbalovacího seznamu) s možností výběru.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {boolean} [props.required=false] - Určuje, zda je pole povinné.
+ * @param {string} props.label - Popisek pole.
+ * @param {string} props.name - Název select elementu.
+ * @param {Function} props.handleChange - Funkce volaná při změně vybrané hodnoty.
+ * @param {string} props.value - Vybraná hodnota.
+ * @param {string} props.prompt - Nápověda zobrazena jako první nevybraná možnost.
+ * @returns {JSX.Element} Rozbalovací seznam s možností výběru.
+ */
 export const InputSelect = ({
     required = false,
     label,

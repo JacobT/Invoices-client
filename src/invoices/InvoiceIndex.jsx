@@ -6,6 +6,12 @@ import SuccessDisplay from "../components/notification/SuccessDisplay";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 import StatisticsDisplay from "./components/StatisticsDisplay";
 
+/**
+ * Komponenta pro zobrazení hlavní stránky faktur.
+ *
+ * @component
+ * @returns {JSX.Element} Hlavní stránka faktur.
+ */
 const InvoiceIndex = () => {
     const {
         invoices,
@@ -50,11 +56,12 @@ const InvoiceIndex = () => {
                     </div>
                 </div>
             </div>
-            <InvoiceFilter
-                showFilter={showFilter}
-                setInvoices={setInvoices}
-                setLoading={setInvoicesLoading}
-            />
+            {showFilter && (
+                <InvoiceFilter
+                    setInvoices={setInvoices}
+                    setLoading={setInvoicesLoading}
+                />
+            )}
             <hr />
             {invoicesLoading ? (
                 <LoadingDisplay />

@@ -5,6 +5,12 @@ import PersonLayout from "./components/PersonLayout";
 import InvoiceTable from "../invoices/components/InvoiceTable";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 
+/**
+ * Komponenta pro detail osoby.
+ *
+ * @component
+ * @returns {JSX.Element} Zobrazení detailu osoby s možností úprav a seznamem faktur.
+ */
 const PersonDetail = () => {
     const { id } = useParams();
     const mode = usePageMode(id);

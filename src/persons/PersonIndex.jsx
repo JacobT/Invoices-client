@@ -4,6 +4,12 @@ import PersonTable from "./components/PersonTable";
 import { usePersonIndex } from "./hooks/usePersonIndex";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 
+/**
+ * Komponenta pro zobrazení hlavní stránky osob.
+ *  *
+ * @component
+ * @returns {JSX.Element} Hlavní stránka osob.
+ */
 const PersonIndex = () => {
     const {
         persons,
@@ -24,12 +30,15 @@ const PersonIndex = () => {
             {isLoading ? (
                 <LoadingDisplay />
             ) : (
-                <PersonTable
-                    deletePerson={handleDelete}
-                    items={persons}
-                    statistics={personsStatistics}
-                    label="Počet osob:"
-                />
+                <>
+                    <p>Počet nalezených osob: {persons.length}</p>
+                    <PersonTable
+                        deletePerson={handleDelete}
+                        items={persons}
+                        statistics={personsStatistics}
+                        label="Počet osob:"
+                    />
+                </>
             )}
             <Link to={"/persons/create"} className="btn bg-success">
                 Nová osoba

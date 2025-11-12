@@ -4,6 +4,53 @@ import { useNavigate } from "react-router-dom";
 import { useErrorContext } from "../../contexts/ErrorContext";
 import { createSuccessState } from "../../utils/createSuccessState";
 
+/**
+ * @typedef {Object} Person
+ * @property {string} _id - ID osoby.
+ * @property {string} [name] - Jméno osoby.
+ * @property {string} [identificationNumber] - IČO.
+ * @property {string} [taxNumber] - DIČ.
+ * @property {string} [accountNumber] - Bankovní účet.
+ * @property {string} [bankCode] - Kód banky.
+ * @property {string} [iban] - IBAN.
+ * @property {string} [telephone] - Telefon.
+ * @property {string} [mail] - Email.
+ * @property {string} [street] - Ulice.
+ * @property {string} [city] - Město.
+ * @property {string} [zip] - PSČ.
+ * @property {string} [country] - Země.
+ */
+
+/**
+ * @typedef {Object} Invoice
+ * @property {string} invoiceNumber - Číslo faktury.
+ * @property {string} issued - Datum vystavení.
+ * @property {string} dueDate - Datum splatnosti.
+ * @property {string} product - Název produktu.
+ * @property {string|number} price - Cena produktu.
+ * @property {string|number} vat - DPH [%].
+ * @property {string} note - Poznámka.
+ * @property {Person} buyer - Odběratel.
+ * @property {Person} seller - Dodavatel.
+ */
+
+/**
+ * @typedef {Object} InvoiceDetailReturn
+ * @property {Invoice} invoice - Aktuální stav faktury.
+ * @property {Array<Person>} people - Seznam všech osob.
+ * @property {boolean} isLoading - Indikátor načítání dat.
+ * @property {(e: Event) => void} handleChange - Funkce pro aktualizaci faktury při změně inputu/selectu.
+ * @property {(e: Event) => Promise<void>} handleSubmit - Funkce pro odeslání faktury (vytvoření/úprava).
+ */
+
+/**
+ * Custom hook pro detail faktury.
+ * Načítá fakturu a seznam osob, poskytuje utility pro změnu polí a odeslání formuláře.
+ *
+ * @hook
+ * @param {string} [id] - ID faktury, pokud se má editovat existující faktura.
+ * @returns {InvoiceDetailReturn} Objekt obsahující data faktury, seznam osob, loading stav a funkce pro změnu a odeslání.
+ */
 export const useInvoiceDetail = (id) => {
     const navigate = useNavigate();
 
@@ -31,6 +78,9 @@ export const useInvoiceDetail = (id) => {
     const [invoiceLoading, setInvoiceLoading] = useState(true);
     const [peopleLoading, setPeopleLoading] = useState(true);
 
+    /**
+     * Načte fakturu z API podle ID.
+     */
     useEffect(() => {
         const getInvoice = async () => {
             if (id) {
@@ -45,6 +95,9 @@ export const useInvoiceDetail = (id) => {
         getInvoice();
     }, [id]);
 
+    /**
+     * Načte seznam všech osob z API.
+     */
     useEffect(() => {
         const getPeople = async () => {
             try {
@@ -58,6 +111,11 @@ export const useInvoiceDetail = (id) => {
         getPeople();
     }, []);
 
+    /**
+     * Aktualizuje stav faktury při změně inputu nebo selectu.
+     *
+     * @param {Event} e - Event inputu/selectu.
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -76,6 +134,12 @@ export const useInvoiceDetail = (id) => {
         }));
     };
 
+    /**
+     * Odesílá fakturu na API (vytvoření nebo aktualizace).
+     * Po úspěšném uložení naviguje zpět na seznam faktur se stavem success.
+     *
+     * @param {Event} e - Submit event formuláře.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 

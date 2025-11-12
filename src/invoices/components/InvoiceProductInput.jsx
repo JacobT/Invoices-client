@@ -1,5 +1,17 @@
 import InputField from "../../components/inputs/InputField";
 
+/**
+ * Komponenta pro zadávání údajů o produktu na faktuře.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {object} props.invoice - Objekt faktury obsahující údaje o produktu.
+ * @param {string} props.invoice.product - Název produktu nebo služby.
+ * @param {number|string} props.invoice.price - Cena produktu.
+ * @param {number|string} props.invoice.vat - Hodnota DPH v procentech.
+ * @param {function} props.handleChange - Funkce pro zpracování změn vstupních polí.
+ * @returns {JSX.Element} Formulářová část pro zadání názvu produktu, ceny a DPH.
+ */
+
 const InvoiceProductInput = ({ invoice, handleChange }) => {
     return (
         <div className="row mb-3">

@@ -2,6 +2,11 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import NavLink from "./NavLink";
 
+/**
+ * Komponenta pro zobrazení navigační lišty (navbar) s možností rozbalení/skrytí položek.
+ *
+ * @returns {JSX.Element} Navigační lišta s odkazy na sekce aplikace.
+ */
 const Navbar = () => {
     const route = useLocation().pathname;
     const [isOpen, setIsOpen] = useState(false);

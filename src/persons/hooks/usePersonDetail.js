@@ -5,6 +5,45 @@ import { Country } from "../../utils/countryFormatter";
 import { useErrorContext } from "../../contexts/ErrorContext";
 import { createSuccessState } from "../../utils/createSuccessState";
 
+/**
+ * @typedef {Object} Person
+ * @property {string} [name]
+ * @property {string} [identificationNumber]
+ * @property {string} [taxNumber]
+ * @property {string} [accountNumber]
+ * @property {string} [bankCode]
+ * @property {string} [iban]
+ * @property {string} [telephone]
+ * @property {string} [mail]
+ * @property {string} [street]
+ * @property {string} [zip]
+ * @property {string} [city]
+ * @property {string} [country]
+ * @property {string} [note]
+ */
+
+/**
+ * @typedef {Object} PersonDetailReturn
+ * @property {Person} person - Aktuální stav osoby.
+ * @property {boolean} personLoading - Indikátor načítání osoby.
+ * @property {Array<Object>} receivedInvoices - Faktury, které osoba obdržela.
+ * @property {Function} setReceivedInvoices - Funkce pro nastavení přijatých faktur.
+ * @property {Array<Object>} sentInvoices - Faktury, které osoba vystavila.
+ * @property {Function} setSentInvoices - Funkce pro nastavení vystavených faktur.
+ * @property {boolean} invoicesLoading - Indikátor načítání faktur.
+ * @property {(e: Event) => void} handleChange - Funkce pro aktualizaci hodnot osoby.
+ * @property {(e: Event) => Promise<void>} handleSubmit - Funkce pro odeslání formuláře osoby.
+ */
+
+/**
+ * Custom hook pro detail osoby a její faktury.
+ * Načítá osobu a její přijaté/vystavené faktury, poskytuje utility pro změnu polí a odeslání.
+ *
+ * @hook
+ * @param {"show"|"edit"|"create"} mode - Režim zobrazení nebo úpravy osoby.
+ * @param {string|null} [id] - ID osoby pro režim show/edit.
+ * @returns {PersonDetailReturn} Stav osoby, faktur a utility funkce.
+ */
 export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
 
@@ -34,6 +73,9 @@ export const usePersonDetail = (mode, id) => {
         useState(true);
     const [sentInvoicesLoading, setsentInvoicesLoading] = useState(true);
 
+    /**
+     * Načte osobu podle ID.
+     */
     useEffect(() => {
         const getPerson = async () => {
             if (id) {
@@ -50,6 +92,9 @@ export const usePersonDetail = (mode, id) => {
         getPerson();
     }, [id]);
 
+    /**
+     * Načte faktury osoby v režimu "show".
+     */
     useEffect(() => {
         if (mode !== "show") return;
 
@@ -84,6 +129,25 @@ export const usePersonDetail = (mode, id) => {
         );
     }, [person.identificationNumber, mode]);
 
+    /**
+     * Aktualizuje hodnotu osoby podle inputu.
+     *
+     * @param {Event} e - Input change event.
+     */
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPerson((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    /**
+     * Odesílá osobu na API (vytvoření nebo aktualizace).
+     * Po úspěšném uložení naviguje zpět na seznam osob se stavem success.
+     *
+     * @param {Event} e - Submit event formuláře.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -106,14 +170,6 @@ export const usePersonDetail = (mode, id) => {
         } catch (error) {
             handleErrors("Chyba při ukládání osoby", error);
         }
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setPerson((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
     };
 
     return {

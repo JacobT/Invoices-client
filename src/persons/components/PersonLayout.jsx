@@ -5,6 +5,15 @@ import countryFormatter from "../../utils/countryFormatter";
 import PersonAddressInput from "./PersonAddressInput";
 import LinkButton from "../../components/actions/LinkButton";
 
+/**
+ * Komponenta pro zobrazení, úpravu nebo vytvoření detailu osoby.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {"show"|"edit"|"create"} props.mode - Režim zobrazení.
+ * @param {object} props.person - Objekt osoby obsahující údaje.
+ * @param {Function} props.handleChange - Funkce volaná při změně inputu nebo selectu, aktualizuje stav osoby.
+ * @returns {JSX.Element} Formulář pro zobrazení, úpravu osoby nebo vytvoření detailu osoby.
+ */
 const PersonLayout = ({ mode, person, handleChange }) => {
     return (
         <>

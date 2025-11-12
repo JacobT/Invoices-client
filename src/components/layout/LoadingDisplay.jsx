@@ -1,3 +1,10 @@
+/**
+ * Komponenta pro zobrazení načítacího indikátoru (spinneru).
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {boolean} [props.small=false] - Určuje, zda má být spinner menší verze.
+ * @returns {JSX.Element} Spinner zarovnaný na střed.
+ */
 const LoadingDisplay = ({ small = false }) => {
     return (
         <div className="d-flex justify-content-center align-items-center">

@@ -7,6 +7,16 @@ import InvoiceProductDisplay from "./InvoiceProductDisplay";
 import InvoiceProductInput from "./InvoiceProductInput";
 import LinkButton from "../../components/actions/LinkButton";
 
+/**
+ * Komponenta pro zobrazení, úpravu nebo vytvoření faktury.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {"create"|"edit"|"show"} props.mode - Určuje režim zobrazení komponenty.
+ * @param {object} props.invoice - Objekt faktury obsahující data.
+ * @param {Array<object>} props.people - Pole osob (dodavatelé a odběratelé) pro výběr ve formuláři.
+ * @param {Function} props.handleChange - Funkce volaná při změně vstupních hodnot.
+ * @returns {JSX.Element} Formulář nebo přehled faktury.
+ */
 const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
     return (
         <>
@@ -62,7 +72,9 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                                 />
                             }
                         />
-                        <InvoicePersonDetail person={invoice.seller} />
+                        {invoice.seller._id && (
+                            <InvoicePersonDetail person={invoice.seller} />
+                        )}
                     </div>
                     <div className="col-12 col-md-6">
                         <EditableField
@@ -80,7 +92,9 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                                 />
                             }
                         />
-                        <InvoicePersonDetail person={invoice.buyer} />
+                        {invoice.buyer._id && (
+                            <InvoicePersonDetail person={invoice.buyer} />
+                        )}
                     </div>
                 </div>
                 <hr />

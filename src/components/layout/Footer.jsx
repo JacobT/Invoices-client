@@ -1,3 +1,9 @@
+/**
+ * Komponenta pro zobrazení patičky stránky (footer).
+ *
+ * @returns {JSX.Element} Patička s autorskými údaji a copyrightem.
+ */
+
 const Footer = () => {
     return (
         <footer className="bg-dark bg-opacity-75 text-white text-center py-3 mt-auto">

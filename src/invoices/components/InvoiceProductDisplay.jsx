@@ -1,3 +1,13 @@
+/**
+ * Komponenta pro zobrazení informací o produktu uvedeném na faktuře.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {object} props.invoice - Objekt faktury obsahující údaje o produktu.
+ * @param {string} props.invoice.product - Název produktu nebo služby na faktuře.
+ * @param {number|string} props.invoice.price - Cena produktu.
+ * @param {number|string} props.invoice.vat - Hodnota DPH v procentech.
+ * @returns {JSX.Element} Tabulka zobrazující název produktu, cenu a sazbu DPH.
+ */
 const InvoiceProductDisplay = ({ invoice }) => {
     return (
         <div className="row mb-3">

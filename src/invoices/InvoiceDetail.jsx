@@ -4,6 +4,11 @@ import { useInvoiceDetail } from "./hooks/useInvoiceDetail";
 import InvoiceLayout from "./components/InvoiceLayout";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 
+/**
+ * Komponenta pro zobrazení detailu faktury.
+ *
+ * @returns {JSX.Element} Kontejner s detailem faktury, formulářem pro úpravu/vytvoření.
+ */
 const InvoiceDetail = () => {
     const { id } = useParams();
     const mode = usePageMode(id);

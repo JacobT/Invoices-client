@@ -2,6 +2,11 @@ import { Route } from "react-router-dom";
 import InvoiceIndex from "../invoices/InvoiceIndex";
 import InvoiceDetail from "../invoices/InvoiceDetail";
 
+/**
+ * React Router DOM routes pro správu faktur.
+ *
+ * @type {JSX.Element}
+ */
 const invoiceRoutes = (
     <>
         <Route path="/invoices">

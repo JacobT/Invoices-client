@@ -1,3 +1,18 @@
+/**
+ * Komponenta pro vytvoření vstupního pole.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {"text"|"number"|"date"|"textarea"} props.type - Typ vstupu.
+ * @param {boolean} [props.required=false] - Určuje, zda je pole povinné.
+ * @param {number|null} [props.min=null] - Minimální hodnota (pro number) nebo minimální délka (pro text/textarea).
+ * @param {string} props.label - Popisek pole.
+ * @param {string} props.prompt - Placeholder nebo nápověda pro uživatele.
+ * @param {number} [props.rows] - Počet řádků pro textarea.
+ * @param {string} props.name - Název vstupu.
+ * @param {string|number} props.value - Hodnota vstupu.
+ * @param {Function} props.handleChange - Funkce volaná při změně hodnoty.
+ * @returns {JSX.Element|null} Vstupní pole nebo null pokud typ není podporován.
+ */
 export const InputField = ({
     type,
     required = false,

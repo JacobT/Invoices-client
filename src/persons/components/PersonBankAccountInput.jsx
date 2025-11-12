@@ -1,5 +1,14 @@
 import InputField from "../../components/inputs/InputField";
 
+/**
+ * Komponenta pro zadání bankovního účtu osoby.
+ * Obsahuje pole pro číslo účtu, kód banky a IBAN.
+ *
+ * @param {object} props - Vlastnosti komponenty.
+ * @param {object} props.person - Objekt osoby, jehož bankovní údaje se upravují.
+ * @param {Function} props.handleChange - Funkce volaná při změně inputu.
+ * @returns {JSX.Element} Formulářová část pro zadání bankovního účtu osoby.
+ */
 const PersonBankAccountInput = ({ person, handleChange }) => {
     return (
         <>
