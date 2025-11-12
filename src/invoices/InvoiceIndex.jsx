@@ -5,6 +5,7 @@ import InvoiceFilter from "./components/InvoiceFilter";
 import SuccessDisplay from "../components/notification/SuccessDisplay";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 import StatisticsDisplay from "./components/StatisticsDisplay";
+import { FilterIcon } from "../assets/icons/icons";
 
 /**
  * Komponenta pro zobrazení hlavní stránky faktur.
@@ -47,12 +48,13 @@ const InvoiceIndex = () => {
                         </p>
                     </div>
                     <div className="col text-end">
-                        <input
+                        <button
                             type="button"
                             className="btn bg-primary"
-                            value="Filtr"
                             onClick={toggleFilter}
-                        />
+                        >
+                            <img src={FilterIcon} alt="Filtr" />
+                        </button>
                     </div>
                 </div>
             </div>
