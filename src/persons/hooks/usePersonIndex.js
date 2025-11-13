@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { apiDelete, apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
-import { useSuccessState as useSuccessState } from "../../hooks/useSuccessState";
+import { useLocationState } from "../../hooks/useLocationState";
+import { createSuccessState } from "../../utils/createSuccessState";
 
 /**
  * @typedef {Object} PersonIndexReturn
  * @property {Array<Object>} persons - Pole všech osob.
  * @property {Array<Object>} personsStatistics - Statistiky osob.
- * @property {{ success: boolean, message: string } | null} sentState - Stav úspěšné akce (např. odeslání formuláře).
+ * @property {{ successMessage: string } | null} sentState - Stav úspěšné akce (např. odeslání formuláře).
  * @property {Function} setSentState - Funkce pro nastavení stavu `sentState`.
  * @property {boolean} isLoading - Indikátor načítání dat.
  * @property {Function} handleDelete - Funkce pro smazání osoby podle ID.
@@ -24,7 +25,7 @@ export const usePersonIndex = () => {
     const [personsStatistics, setPersonsStatistics] = useState([]);
 
     const { handleErrors, clearErrors } = useErrorContext();
-    const [sentState, setSentState] = useSuccessState("sent");
+    const [sentState, setSentState] = useLocationState();
     const [isLoading, setLoading] = useState(true);
 
     /**
@@ -68,11 +69,14 @@ export const usePersonIndex = () => {
     const handleDelete = async (id) => {
         clearErrors();
 
-        try {
-            await apiDelete("/api/persons/" + id);
-            setPersons((prev) => prev.filter((item) => item._id !== id));
-        } catch (error) {
-            handleErrors("Chyba při mazání osoby", error);
+        if (confirm("Opravdu si přejete smazat osobu?")) {
+            try {
+                await apiDelete("/api/persons/" + id);
+                setPersons((prev) => prev.filter((item) => item._id !== id));
+                setSentState(createSuccessState("Osoba byla úspěšně smazána."));
+            } catch (error) {
+                handleErrors("Chyba při mazání osoby", error);
+            }
         }
     };
 

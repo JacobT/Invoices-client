@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useInvoiceIndex } from "./hooks/useInvoiceIndex";
 import InvoiceTable from "./components/InvoiceTable";
-import InvoiceFilter from "./components/InvoiceFilter";
+import InvoiceFilterForm from "./components/InvoiceFilterForm";
 import SuccessDisplay from "../components/notification/SuccessDisplay";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 import StatisticsDisplay from "./components/StatisticsDisplay";
@@ -59,7 +59,7 @@ const InvoiceIndex = () => {
                 </div>
             </div>
             {showFilter && (
-                <InvoiceFilter
+                <InvoiceFilterForm
                     setInvoices={setInvoices}
                     setLoading={setInvoicesLoading}
                 />
@@ -71,7 +71,7 @@ const InvoiceIndex = () => {
                 <InvoiceTable
                     items={invoices}
                     setItems={setInvoices}
-                    apiPath={"/api/invoices/"}
+                    setSuccess={setSentState}
                 />
             )}
             <Link to={"/invoices/create"} className="btn bg-success">

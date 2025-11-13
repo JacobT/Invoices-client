@@ -154,10 +154,7 @@ export const useInvoiceDetail = (mode, id) => {
                 await apiPost("/api/invoices", invoice);
             }
             navigate("/invoices", {
-                state: createSuccessState(
-                    "sent",
-                    "Faktura byla úspěšně uložena."
-                ),
+                state: createSuccessState("Faktura byla úspěšně uložena."),
             });
         } catch (error) {
             handleErrors("Chyba při ukládání faktury", error);

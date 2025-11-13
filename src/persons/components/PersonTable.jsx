@@ -11,7 +11,7 @@ import TableActions from "../../components/actions/TableActions";
  */
 const PersonTable = ({ items, statistics, deletePerson }) => {
     return (
-        <div className="table-responsive mb-3">
+        <div className="table-responsive">
             <table className="table table-bordered table-striped table-hover text-center align-middle">
                 <thead className="table-light align-middle">
                     <tr>

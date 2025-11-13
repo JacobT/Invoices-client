@@ -8,10 +8,11 @@ import TableActions from "../../components/actions/TableActions";
  * @param {object} props - Vlastnosti komponenty.
  * @param {Array<object>} props.items - Pole objektů faktur, které se mají zobrazit.
  * @param {Function} props.setItems - Funkce pro aktualizaci seznamu faktur.
+ * @param {Function} props.setSuccess - Funkce pro nastavení úspěšného stavu.
  * @returns {JSX.Element} Tabulka se seznamem faktur a akcemi.
  */
-const InvoiceTable = ({ items, setItems }) => {
-    const handleDelete = useInvoiceTable(setItems);
+const InvoiceTable = ({ items, setItems, setSuccess }) => {
+    const handleDelete = useInvoiceTable(setItems, setSuccess);
 
     return (
         <div className="table-responsive mb-3">

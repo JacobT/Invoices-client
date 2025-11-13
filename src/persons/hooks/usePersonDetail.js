@@ -31,6 +31,8 @@ import { createSuccessState } from "../../utils/createSuccessState";
  * @property {Array<Object>} sentInvoices - Faktury, které osoba vystavila.
  * @property {Function} setSentInvoices - Funkce pro nastavení vystavených faktur.
  * @property {boolean} invoicesLoading - Indikátor načítání faktur.
+ * @property {{successMessage: string}|null} deleteSuccess - Stav úspěšné akce.
+ * @property {Function} setDeleteSuccess - Funkce pro nastavení stavu úspěšné akce.
  * @property {(e: Event) => void} handleChange - Funkce pro aktualizaci hodnot osoby.
  * @property {(e: Event) => Promise<void>} handleSubmit - Funkce pro odeslání formuláře osoby.
  */
@@ -67,6 +69,7 @@ export const usePersonDetail = (mode, id) => {
     const [sentInvoices, setSentInvoices] = useState([]);
 
     const { handleErrors, clearErrors } = useErrorContext();
+    const [deleteSuccess, setDeleteSuccess] = useState();
 
     const [personLoading, setPersonLoading] = useState(true);
     const [receivedInvoicesLoading, setRecievedInvoicesLoading] =
@@ -165,10 +168,7 @@ export const usePersonDetail = (mode, id) => {
             }
 
             navigate("/persons", {
-                state: createSuccessState(
-                    "sent",
-                    "Osoba byla úspěšně uložena."
-                ),
+                state: createSuccessState("Osoba byla úspěšně uložena."),
             });
         } catch (error) {
             handleErrors("Chyba při ukládání osoby", error);
@@ -183,6 +183,8 @@ export const usePersonDetail = (mode, id) => {
         sentInvoices,
         setSentInvoices,
         invoicesLoading: receivedInvoicesLoading && sentInvoicesLoading,
+        deleteSuccess,
+        setDeleteSuccess,
         handleChange,
         handleSubmit,
     };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
-import { useSuccessState } from "../../hooks/useSuccessState";
+import { useLocationState } from "../../hooks/useLocationState";
 import { useFilterToggle } from "./useFilterToggle";
 
 /**
@@ -17,7 +17,7 @@ import { useFilterToggle } from "./useFilterToggle";
  * @property {boolean} statisticsLoading - Stav načítání statistik.
  * @property {boolean} showFilter - Stav zobrazení filtru.
  * @property {Function} toggleFilter - Funkce pro přepínání viditelnosti filtru.
- * @property {{success: boolean, message: string}|null} sentState - Stav úspěšné akce.
+ * @property {{successMessage: string}|null} sentState - Stav úspěšné akce.
  * @property {Function} setSentState - Funkce pro nastavení stavu úspěšné akce.
  */
 
@@ -37,7 +37,8 @@ export const useInvoiceIndex = () => {
 
     const { showFilter, toggleFilter } = useFilterToggle();
     const { handleErrors } = useErrorContext();
-    const [sentState, setSentState] = useSuccessState("sent");
+    const [sentState, setSentState] = useLocationState();
+
     const [invoicesLoading, setInvoicesLoading] = useState(true);
     const [statisticsLoading, setStatisticsLoading] = useState(true);
 

@@ -4,6 +4,8 @@ import { usePageMode } from "../hooks/usePageMode";
 import PersonLayout from "./components/PersonLayout";
 import InvoiceTable from "../invoices/components/InvoiceTable";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
+import SuccessDisplay from "../components/notification/SuccessDisplay";
+import InvoiceFilterForm from "../invoices/components/InvoiceFilterForm";
 
 /**
  * Komponenta pro detail osoby.
@@ -23,6 +25,8 @@ const PersonDetail = () => {
         sentInvoices,
         setSentInvoices,
         invoicesLoading,
+        deleteSuccess,
+        setDeleteSuccess,
         handleChange,
         handleSubmit,
     } = usePersonDetail(mode, id);
@@ -33,6 +37,12 @@ const PersonDetail = () => {
 
     return (
         <div>
+            {deleteSuccess && (
+                <SuccessDisplay
+                    state={deleteSuccess}
+                    setState={setDeleteSuccess}
+                />
+            )}
             {mode === "show" ? (
                 <>
                     <PersonLayout {...layoutProps} />
@@ -47,6 +57,7 @@ const PersonDetail = () => {
                                     <InvoiceTable
                                         items={sentInvoices}
                                         setItems={setSentInvoices}
+                                        setSuccess={setDeleteSuccess}
                                     />
                                 </>
                             )}
@@ -56,6 +67,7 @@ const PersonDetail = () => {
                                     <InvoiceTable
                                         items={receivedInvoices}
                                         setItems={setReceivedInvoices}
+                                        setSuccess={setDeleteSuccess}
                                     />
                                 </>
                             )}

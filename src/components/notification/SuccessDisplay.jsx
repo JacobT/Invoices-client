@@ -17,7 +17,7 @@ const SuccessDisplay = ({ state, setState }) => {
 
     return (
         <div className="fixed-alert">
-            <FlashMessage theme={"success"} text={state.message} />
+            <FlashMessage theme={"success"} text={state.successMessage} />
         </div>
     );
 };

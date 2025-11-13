@@ -1,6 +1,6 @@
 import InputField from "../../components/inputs/InputField";
 import InputSelect from "../../components/inputs/InputSelect";
-import { useInvoiceFilter } from "../hooks/useInvoiceFilter";
+import { useInvoiceFilterForm } from "../hooks/useInvoiceFilterForm";
 
 /**
  * Komponenta pro filtrování faktur.
@@ -10,14 +10,14 @@ import { useInvoiceFilter } from "../hooks/useInvoiceFilter";
  * @param {Function} props.setLoading - Funkce pro nastavení stavu načítání během filtrování.
  * @returns {JSX.Element} Formulář s poli pro zadání filtračních parametrů a ovládacími tlačítky.
  */
-const InvoiceFilter = ({ setInvoices, setLoading }) => {
+const InvoiceFilterForm = ({ setInvoices, setLoading }) => {
     const { filter, people, handleChange, resetFilter, applyFilter } =
-        useInvoiceFilter(setInvoices, setLoading);
+        useInvoiceFilterForm(setInvoices, setLoading);
 
     return (
         <>
             <hr />
-            <form className="container narrow-container">
+            <form className="container narrow-container mb-3">
                 <div className="row">
                     <div className="col-6">
                         <InputField
@@ -128,4 +128,4 @@ const InvoiceFilter = ({ setInvoices, setLoading }) => {
     );
 };
 
-export default InvoiceFilter;
+export default InvoiceFilterForm;

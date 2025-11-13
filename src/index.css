@@ -31,3 +31,9 @@
 .btn:not([class*="bg-opacity-"]) {
   --bs-bg-opacity: 0.5;
 }
+
+.centered {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

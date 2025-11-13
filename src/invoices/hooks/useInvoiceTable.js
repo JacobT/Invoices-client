@@ -1,5 +1,6 @@
 import { apiDelete } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
+import { createSuccessState } from "../../utils/createSuccessState";
 
 /**
  * Custom hook pro správu tabulky faktur.
@@ -8,9 +9,10 @@ import { useErrorContext } from "../../contexts/ErrorContext";
  * @hook
  * @param {Array<Object>} items - Seznam faktur aktuálně zobrazených v tabulce.
  * @param {Function} setItems - Funkce pro aktualizaci seznamu faktur.
+ * @param {Function} setSuccess - Funkce pro nastavení úspěšného stavu.
  * @returns {(id: string) => Promise<void>} Funkce pro smazání faktury podle ID.
  */
-export const useInvoiceTable = (setItems) => {
+export const useInvoiceTable = (setItems, setSuccess) => {
     const { handleErrors, clearErrors } = useErrorContext();
 
     /**
@@ -20,11 +22,14 @@ export const useInvoiceTable = (setItems) => {
      */
     const handleDelete = async (id) => {
         clearErrors();
-        try {
-            await apiDelete("/api/invoices/" + id);
-            setItems((prev) => prev.filter((item) => item._id != id));
-        } catch (error) {
-            handleErrors("Chyba při mazání faktury", error);
+        if (confirm("Opravdu si přejete smazat fakturu?")) {
+            try {
+                await apiDelete("/api/invoices/" + id);
+                setItems((prev) => prev.filter((item) => item._id != id));
+                setSuccess(createSuccessState("Faktura byla úspěšně smazána."));
+            } catch (error) {
+                handleErrors("Chyba při mazání faktury", error);
+            }
         }
     };
 

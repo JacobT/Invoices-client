@@ -3,7 +3,7 @@ import { apiGet } from "../../utils/api";
 import { useErrorContext } from "../../contexts/ErrorContext";
 
 /**
- * @typedef {Object} InvoiceFilterReturn
+ * @typedef {Object} InvoiceFilterFormReturn
  * @property {Object} filter - Aktuální stav filtru faktur.
  * @property {string} filter.invoiceNumber - Filtrovat podle čísla faktury.
  * @property {string} filter.fromDate - Filtrovat od data vydání.
@@ -26,9 +26,9 @@ import { useErrorContext } from "../../contexts/ErrorContext";
  * @hook
  * @param {Function} setInvoices - Funkce pro nastavení seznamu faktur po aplikaci filtru.
  * @param {Function} setLoading - Funkce pro nastavení loading stavu při načítání faktur.
- * @returns {InvoiceFilterReturn} Objekt obsahující stav filtru, seznam osob a utility funkce.
+ * @returns {InvoiceFilterFormReturn} Objekt obsahující stav filtru, seznam osob a utility funkce.
  */
-export const useInvoiceFilter = (setInvoices, setLoading) => {
+export const useInvoiceFilterForm = (setInvoices, setLoading) => {
     const [filter, setFilter] = useState({
         invoiceNumber: "",
         fromDate: "",
