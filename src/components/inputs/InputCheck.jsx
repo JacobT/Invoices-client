@@ -23,7 +23,7 @@ export const InputCheck = ({
 
     // validace typu
     const typeNormalized = type.toLowerCase();
-    if (!INPUTS.includes(type)) {
+    if (!INPUTS.includes(typeNormalized)) {
         return null;
     }
 

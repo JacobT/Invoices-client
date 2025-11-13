@@ -70,7 +70,7 @@ export const usePersonIndex = () => {
 
         try {
             await apiDelete("/api/persons/" + id);
-            setPersons(persons.filter((item) => item._id !== id));
+            setPersons((prev) => prev.filter((item) => item._id !== id));
         } catch (error) {
             handleErrors("Chyba při mazání osoby", error);
         }

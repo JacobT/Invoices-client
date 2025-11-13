@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../../utils/api";
 import { Country } from "../../utils/countryFormatter";
@@ -47,7 +47,7 @@ import { createSuccessState } from "../../utils/createSuccessState";
 export const usePersonDetail = (mode, id) => {
     const navigate = useNavigate();
 
-    let initialPerson = null;
+    let initialPerson = useRef(null);
     const [person, setPerson] = useState({
         name: "",
         identificationNumber: "",
@@ -82,7 +82,7 @@ export const usePersonDetail = (mode, id) => {
                 try {
                     const person = await apiGet("/api/persons/" + id);
                     setPerson(person);
-                    initialPerson = person;
+                    initialPerson.current = person;
                 } catch (error) {
                     handleErrors("Chyba při načítání osoby", error);
                 }
@@ -154,7 +154,10 @@ export const usePersonDetail = (mode, id) => {
         clearErrors();
         try {
             if (mode === "edit") {
-                if (JSON.stringify(initialPerson) === JSON.stringify(person)) {
+                if (
+                    JSON.stringify(initialPerson.current) !==
+                    JSON.stringify(person)
+                ) {
                     await apiPut("/api/persons/" + id, person);
                 }
             } else {

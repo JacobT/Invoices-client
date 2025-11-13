@@ -13,7 +13,7 @@ const InvoiceDetail = () => {
     const { id } = useParams();
     const mode = usePageMode(id);
     const { invoice, people, isLoading, handleChange, handleSubmit } =
-        useInvoiceDetail(id);
+        useInvoiceDetail(mode, id);
     const layoutProps = { mode, invoice, people, handleChange };
 
     return (

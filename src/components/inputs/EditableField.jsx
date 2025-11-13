@@ -6,13 +6,16 @@
  * @param {string} props.label - Popisek pole (např. název nebo štítek).
  * @param {string} props.display - Prvek zobrazovaný v režimu "show" (např. formátovaný text).
  * @param {JSX.Element} props.input - Prvek pro úpravu hodnoty (např. vstupní pole).
+ * @param {boolean} [props.createOnly=false] - Určuje, zda lze údaj měnit po vytvoření.
  * @returns {JSX.Element} Vyhodnocený prvek.
  */
-const EditableField = ({ mode, label, display, input }) => {
+const EditableField = ({ mode, label, display, input, createOnly = false }) => {
     return (
         <div>
             {label}
-            {mode === "show" ? display : input}
+            {mode === "show" || (createOnly && mode !== "create")
+                ? display
+                : input}
         </div>
     );
 };

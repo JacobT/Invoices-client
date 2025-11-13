@@ -11,7 +11,7 @@ import TableActions from "../../components/actions/TableActions";
  * @returns {JSX.Element} Tabulka se seznamem faktur a akcemi.
  */
 const InvoiceTable = ({ items, setItems }) => {
-    const handleDelete = useInvoiceTable(items, setItems);
+    const handleDelete = useInvoiceTable(setItems);
 
     return (
         <div className="table-responsive mb-3">

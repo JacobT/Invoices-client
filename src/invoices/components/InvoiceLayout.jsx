@@ -71,6 +71,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                                     prompt={"Vyberte dodavatele..."}
                                 />
                             }
+                            createOnly={true}
                         />
                         {invoice.seller._id && (
                             <InvoicePersonDetail person={invoice.seller} />
@@ -91,6 +92,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                                     prompt={"Vyberte odběratele..."}
                                 />
                             }
+                            createOnly={true}
                         />
                         {invoice.buyer._id && (
                             <InvoicePersonDetail person={invoice.buyer} />

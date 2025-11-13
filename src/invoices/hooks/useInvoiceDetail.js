@@ -48,10 +48,11 @@ import { createSuccessState } from "../../utils/createSuccessState";
  * Načítá fakturu a seznam osob, poskytuje utility pro změnu polí a odeslání formuláře.
  *
  * @hook
+ * @param {"show"|"edit"|"create"} mode - Režim zobrazení nebo úpravy faktury.
  * @param {string} [id] - ID faktury, pokud se má editovat existující faktura.
  * @returns {InvoiceDetailReturn} Objekt obsahující data faktury, seznam osob, loading stav a funkce pro změnu a odeslání.
  */
-export const useInvoiceDetail = (id) => {
+export const useInvoiceDetail = (mode, id) => {
     const navigate = useNavigate();
 
     const issued = new Date();
@@ -100,16 +101,18 @@ export const useInvoiceDetail = (id) => {
      */
     useEffect(() => {
         const getPeople = async () => {
-            try {
-                setPeople(await apiGet("/api/persons"));
-            } catch (error) {
-                handleErrors("Chyba při načítání osob", error);
-            } finally {
-                setPeopleLoading(false);
+            if (mode === "create") {
+                try {
+                    setPeople(await apiGet("/api/persons"));
+                } catch (error) {
+                    handleErrors("Chyba při načítání osob", error);
+                } finally {
+                    setPeopleLoading(false);
+                }
             }
         };
         getPeople();
-    }, []);
+    }, [mode]);
 
     /**
      * Aktualizuje stav faktury při změně inputu nebo selectu.
@@ -150,13 +153,15 @@ export const useInvoiceDetail = (id) => {
             } else {
                 await apiPost("/api/invoices", invoice);
             }
+            navigate("/invoices", {
+                state: createSuccessState(
+                    "sent",
+                    "Faktura byla úspěšně uložena."
+                ),
+            });
         } catch (error) {
             handleErrors("Chyba při ukládání faktury", error);
         }
-
-        navigate("/invoices", {
-            state: createSuccessState("sent", "Faktura byla úspěšně uložena."),
-        });
     };
 
     return {

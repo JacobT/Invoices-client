@@ -10,7 +10,7 @@ import { useErrorContext } from "../../contexts/ErrorContext";
  * @param {Function} setItems - Funkce pro aktualizaci seznamu faktur.
  * @returns {(id: string) => Promise<void>} Funkce pro smazání faktury podle ID.
  */
-export const useInvoiceTable = (items, setItems) => {
+export const useInvoiceTable = (setItems) => {
     const { handleErrors, clearErrors } = useErrorContext();
 
     /**
@@ -22,7 +22,7 @@ export const useInvoiceTable = (items, setItems) => {
         clearErrors();
         try {
             await apiDelete("/api/invoices/" + id);
-            setItems(items.filter((item) => item._id != id));
+            setItems((prev) => prev.filter((item) => item._id != id));
         } catch (error) {
             handleErrors("Chyba při mazání faktury", error);
         }
