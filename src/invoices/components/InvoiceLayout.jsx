@@ -5,7 +5,7 @@ import EditableField from "../../components/inputs/EditableField";
 import { dateStringFormatter } from "../../utils/dateStringFormatter";
 import InvoiceProductDisplay from "./InvoiceProductDisplay";
 import InvoiceProductInput from "./InvoiceProductInput";
-import LinkButton from "../../components/actions/LinkButton";
+import LinkButton from "../../components/actions/BackButton";
 
 /**
  * Komponenta pro zobrazení, úpravu nebo vytvoření faktury.
@@ -46,10 +46,7 @@ const InvoiceLayout = ({ mode, invoice, people, handleChange }) => {
                         )}
                     </div>
                     <div className="col-auto d-flex align-items-center">
-                        <LinkButton
-                            url={"/invoices"}
-                            label={"Zpět na seznam"}
-                        />
+                        <LinkButton label={"Zpět na seznam"} />
                     </div>
                 </div>
             </div>

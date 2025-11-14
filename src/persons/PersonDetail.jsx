@@ -5,7 +5,6 @@ import PersonLayout from "./components/PersonLayout";
 import InvoiceTable from "../invoices/components/InvoiceTable";
 import LoadingDisplay from "../components/layout/LoadingDisplay";
 import SuccessDisplay from "../components/notification/SuccessDisplay";
-import InvoiceFilterForm from "../invoices/components/InvoiceFilterForm";
 
 /**
  * Komponenta pro detail osoby.

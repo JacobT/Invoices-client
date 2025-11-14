@@ -3,7 +3,7 @@ import EditableField from "../../components/inputs/EditableField";
 import PersonBankAccountInput from "./PersonBankAccountInput";
 import countryFormatter from "../../utils/countryFormatter";
 import PersonAddressInput from "./PersonAddressInput";
-import LinkButton from "../../components/actions/LinkButton";
+import BackButton from "../../components/actions/BackButton";
 
 /**
  * Komponenta pro zobrazení, úpravu nebo vytvoření detailu osoby.
@@ -29,7 +29,7 @@ const PersonLayout = ({ mode, person, handleChange }) => {
                         </h1>
                     </div>
                     <div className="col-auto d-flex align-items-center">
-                        <LinkButton url={"/persons"} label={"Zpět na seznam"} />
+                        <BackButton label={"Zpět na seznam"} />
                     </div>
                 </div>
             </div>
