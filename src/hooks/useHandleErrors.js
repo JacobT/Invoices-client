@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ApiRequestError } from "../utils/api";
 
+const NOT_FOUND_STATUS = 404;
+
 /**
  * @typedef {Object} HandleErrorsReturn
  * @property {string[]} errorsState - Pole aktuálních chybových zpráv.
@@ -37,7 +39,10 @@ export const useHandleErrors = () => {
      * @param {Function} [setEmptyState=null] - Volitelná funkce pro nastavení prázdného stavu.
      */
     const handleErrors = (message, error, setEmptyState = null) => {
-        if (error instanceof ApiRequestError && error.response.status === 404) {
+        if (
+            error instanceof ApiRequestError &&
+            error.response.status === NOT_FOUND_STATUS
+        ) {
             if (setEmptyState) {
                 setEmptyState();
             } else {

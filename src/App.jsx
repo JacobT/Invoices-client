@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes } from "react-router-dom";
-
 import { ErrorProvider } from "./contexts/ErrorContext";
 import Navbar from "./components/layout/Navbar";
 import ErrorDisplay from "./components/notification/ErrorDisplay";
